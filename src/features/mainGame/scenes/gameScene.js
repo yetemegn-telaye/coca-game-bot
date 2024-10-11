@@ -62,6 +62,8 @@ class GameScene extends Phaser.Scene {
     
    
     this.ice_cubes.forEach(ice_cube => {
+      ice_cube.displayHeight = 70;
+      ice_cube.displayWidth = 70;
       ice_cube.y += 1;
       if (ice_cube.y > this.sys.canvas.height) {
         ice_cube.y = 0;
