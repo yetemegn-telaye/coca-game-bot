@@ -12,6 +12,7 @@ const GameScreen = () => {
     parent: 'game-container',
     width: 350,
     height: 500,
+   
     scene: new GameScene({ setScore }),
     physics: {
       default: 'arcade',
@@ -26,7 +27,6 @@ const GameScreen = () => {
 
   return (
     <div className=''>
-      
       <MainGame config={config} />
     </div>
   );
