@@ -5,7 +5,7 @@ import MenuHeroSection from "./MenuHeroSection";
 
 const MainMenu = () => {
     return (
-        <div className="main-container">
+        <div className="main-container bg-gradient-light text-white">
         <TopBar title="" />
         <MenuHeroSection />
         <MenuDetailSection />

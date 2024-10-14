@@ -15,7 +15,8 @@ module.exports = {
       },
       backgroundImage: {
         'gradient-primary': 'linear-gradient(180deg, #C92A2A 0%, #000 100%)',
-        'gradient-secondary': 'linear-gradient(180deg, #E2E2E2 30%, #000 100%)',
+        'gradient-light': 'linear-gradient(180deg, #C92A2A 0%, #4A3A1D 100%)',
+        'gradient-secondary': 'linear-gradient(180deg, #E2E2E2 40%, #000 100%)',
         'hero-image' : 'url(/src/assets/images/beer_bg.png)',
       },
     },

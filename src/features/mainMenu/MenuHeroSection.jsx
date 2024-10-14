@@ -3,7 +3,7 @@ import CoinCapIcon from '../../assets/icons/coca-cola-cap2-removebg-preview 1.pn
 import TrophyWhite from '../../assets/icons/trophy-white.svg';
 const MenuHeroSection = () => {
     return(
-        <div className="flex flex-col items-center gap-4 bg-hero-image bg-no-repeat bg-center bg-cover" style={{backgroundSize:'50%'}}>
+        <div className="flex flex-col items-center gap-4 bg-hero-image bg-no-repeat bg-center bg-contain" style={{backgroundSize:'65%'}}>
             <div className='flex flex-col items-center justify-center gap-2'>
                 <img src={ProfilePic} alt="profile" className='w-20 h-20'/>
                 <p className='text-xs'>Ayantu Lemma</p>

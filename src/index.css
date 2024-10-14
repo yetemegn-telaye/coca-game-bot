@@ -19,7 +19,6 @@ code {
 } */
 
   .main-container{
-    @apply bg-gradient-primary text-white;
     margin: 20px auto;
     height: 100vh;
     width: 320px;
