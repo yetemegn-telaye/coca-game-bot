@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Phaser from 'phaser';
 
 import MainGame from './MainGame';
@@ -10,7 +10,7 @@ const GameScreen = () => {
   const config = {
     type: Phaser.AUTO,
     parent: 'game-container',
-    width: 350,
+    width: 300,
     height: 500,
    
     scene: new GameScene({ setScore }),
