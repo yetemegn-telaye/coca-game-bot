@@ -7,6 +7,6 @@ const MainGame = ({config}) => {
         return () => game.destroy(true);
       }, [config]);
     
-      return <div id="game-container"></div>;
+      return <div id="game-container" className="main-container"></div>;
     }
 export default MainGame;

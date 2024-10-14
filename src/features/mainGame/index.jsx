@@ -10,8 +10,8 @@ const GameScreen = () => {
   const config = {
     type: Phaser.AUTO,
     parent: 'game-container',
-    width: 300,
-    height: 500,
+    width: 320,
+    height: 600,
    
     scene: new GameScene({ setScore }),
     physics: {
@@ -26,7 +26,7 @@ const GameScreen = () => {
 
 
   return (
-    <div className=''>
+    <div className='main-container'>
       <MainGame config={config} />
     </div>
   );
