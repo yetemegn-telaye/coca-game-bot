@@ -21,7 +21,6 @@ code {
   .main-container{
     @apply bg-gradient-primary text-white;
     margin: 20px auto;
-    margin-bottom: 10px;
     height: 100vh;
     width: 320px;
     border-radius: 30px;

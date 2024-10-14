@@ -11,7 +11,7 @@ const GameScreen = () => {
     type: Phaser.AUTO,
     parent: 'game-container',
     width: 320,
-    height: 600,
+    height: 558,
    
     scene: new GameScene({ setScore }),
     physics: {
@@ -20,13 +20,17 @@ const GameScreen = () => {
         gravity: { y: 0 },
       },
     },
+    scale: {
+      mode: Phaser.Scale.RESIZE, // Adjust Phaser to resize according to container
+      autoCenter: Phaser.Scale.CENTER_BOTH, // Center the game
+    },
   };
 
 
 
 
   return (
-    <div className='main-container'>
+    <div>
       <MainGame config={config} />
     </div>
   );
