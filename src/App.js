@@ -1,11 +1,16 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import GameScreen from './features/mainGame';
+import MainMenu from './features/mainMenu';
 
 
-function App({children}) {
+function App() {
   return (
-      <div className='flex justify-center mt-10'>
-        <GameScreen/>
-      </div>
+    <BrowserRouter>
+      <Routes>
+      <Route path="/" element={<MainMenu />} />
+      <Route path="/game-screen" element={<GameScreen />} />
+    </Routes>
+    </BrowserRouter>
   );
 }
 
