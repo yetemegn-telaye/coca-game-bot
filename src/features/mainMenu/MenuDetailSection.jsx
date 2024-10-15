@@ -9,6 +9,7 @@ import AshuProfilePic from '../../assets/images/ashu.png';
 import AlexProfilePic from '../../assets/images/alex.png';
 import Members from './Members';
 
+
 const achievements = [{
     tag: "Loyal Popper",
     icon: AchievementIcon1

@@ -4,7 +4,7 @@ import Crown3Icon from '../../assets/icons/crown3.png';
 import Winner1Pic from '../../assets/images/winnerpic.png';
 import Winner2Pic from '../../assets/images/win2nd.png';
 import Winner3Pic from '../../assets/images/win3rd.png';
-import CoinCapIcon from '../../assets/icons/coca-cola-cap2-removebg-preview 1.png';
+import CoinCapIcon from '../../assets/icons/coca-cola-cap2-removebg-preview 1.svg';
 
 const winners = [
     {
@@ -31,10 +31,10 @@ const LeaderBoardTopSection = () => {
     return (
         <div className="flex justify-center items-center p-5 relative">
             
-            <div className="flex flex-col justify-center items-center text-center absolute left-2 bottom-1">
+            <div className="flex flex-col justify-center items-center text-center absolute left-2 bottom-0">
                 <img src={Crown2Icon} alt="crown" className="h-10 w-10 mr-8 relative top-4" />
-                <img src={winners[1].winnerPic} alt="winner" className="h-12 w-12" />
-                <div className="bg-white text-black px-1 pt-1 rounded-md flex flex-col items-center relative bottom-2" style={{fontSize:'10px'}}>
+                <img src={winners[1].winnerPic} alt="winner" className="h-10 w-10" />
+                <div className="bg-white text-black px-1 pt-1 rounded-md flex flex-col items-center relative bottom-2" style={{fontSize:'9px'}}>
                     <p className="">{winners[1].name}</p>
                     <span className="flex items-center text-gray-500 font-bold">
                         {winners[1].scoreValue}
@@ -57,10 +57,10 @@ const LeaderBoardTopSection = () => {
             </div>
 
            
-            <div className="flex flex-col justify-center items-center text-center absolute right-3 bottom-0">
+            <div className="flex flex-col justify-center items-center text-center absolute right-1 top-28">
                 <img src={Crown3Icon} alt="crown" className="h-10 w-10 relative top-3 ml-6" />
-                <img src={winners[2].winnerPic} alt="winner" className="h-10 w-10" />
-                <div className="bg-white text-black relative bottom-2 px-1 pt-1 rounded-md flex flex-col items-center mt-1" style={{fontSize: '8px'}}>
+                <img src={winners[2].winnerPic} alt="winner" className="h-8 w-8" />
+                <div className="bg-white text-black relative bottom-2 px-1 pt-1 rounded-md flex flex-col items-center mt-1" style={{fontSize: '7px'}}>
                     <p className="font-light" >{winners[2].name}</p>
                     <span className="flex items-center text-gray-500 font-bold">
                         {winners[2].scoreValue}

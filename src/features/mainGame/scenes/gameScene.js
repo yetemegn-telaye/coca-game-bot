@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import BackgroundImage from '../../../assets/coca-bg2.png';
 import Balloon from '../objects/balloon';
 import Label from '../objects/gameLabel';
-import CorkIcon from '../../../assets/icons/coca-cola-cap2-removebg-preview 1.png';
+import CorkIcon from '../../../assets/icons/coca-cola-cap2-removebg-preview 1.svg';
 import TrophyIcon from '../../../assets/icons/Group.png';
 import SkullIcecube from '../../../assets/images/skullIcecube.png';
 import CocaIcecube from '../../../assets/images/bottleIcecube.png';
