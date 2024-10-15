@@ -20,7 +20,7 @@ code {
 
   .main-container{
     margin: 20px auto;
-    height: 100vh;
+    height: 100%;
     width: 320px;
     border-radius: 30px;
   }
