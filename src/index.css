@@ -21,7 +21,7 @@ code {
   .main-container{
     margin: 20px auto;
     height: 100%;
-    width: 320px;
+    max-width: 320px;
     @apply text-white;
     border-radius: 30px;
   }
