@@ -20,9 +20,10 @@ code {
 
   .main-container{
     margin: 20px auto;
-    height: 100%;
+    margin-bottom: 10px;
+    max-height: 100vh;
     max-width: 320px;
     @apply text-white;
-    border-radius: 30px;
+    border-radius: 20px;
   }
 
