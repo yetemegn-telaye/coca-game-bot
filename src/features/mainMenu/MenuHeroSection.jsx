@@ -1,5 +1,5 @@
 import ProfilePic from '../../assets/images/Avatar.png';
-import CoinCapIcon from '../../assets/icons/coca-cola-cap2-removebg-preview 1.png';
+import CoinCapIcon from '../../assets/icons/coca-cola-cap2-removebg-preview 1.svg';
 import TrophyWhite from '../../assets/icons/trophy-white.svg';
 const MenuHeroSection = () => {
     return(

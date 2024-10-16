@@ -9,6 +9,7 @@ import AshuProfilePic from '../../assets/images/ashu.png';
 import AlexProfilePic from '../../assets/images/alex.png';
 import Members from './Members';
 
+
 const achievements = [{
     tag: "Loyal Popper",
     icon: AchievementIcon1
@@ -46,7 +47,7 @@ const sharedMembers = [{
 ];
 const MenuDetailSection =()=>{
     return(
-        <div className="flex flex-col gap-8 bg-gradient-secondary p-5 rounded-t-3xl mt-5">
+        <div className="flex flex-col gap-8 bg-gradient-secondary p-5 rounded-3xl mt-5">
             <div className="flex items-center justify-between my-1">
                 <button className="text-black border border-black bg-transparent py-1 px-7 text-sm rounded-lg font-bold">Stats</button>
                 <button className="text-gray-700 flex items-center text-sm font-bold">
