@@ -31,7 +31,7 @@ const LeaderBoardTopSection = () => {
     return (
         <div className="flex justify-center items-center p-5 relative">
             
-            <div className="flex flex-col justify-center items-center text-center absolute left-2 bottom-0">
+            <div className="flex flex-col justify-center items-center text-center absolute left-3 bottom-0">
                 <img src={Crown2Icon} alt="crown" className="h-10 w-10 mr-8 relative top-4" />
                 <img src={winners[1].winnerPic} alt="winner" className="h-10 w-10" />
                 <div className="bg-white text-black px-1 pt-1 rounded-md flex flex-col items-center relative bottom-2" style={{fontSize:'9px'}}>
@@ -57,7 +57,7 @@ const LeaderBoardTopSection = () => {
             </div>
 
            
-            <div className="flex flex-col justify-center items-center text-center absolute right-1 top-28">
+            <div className="flex flex-col justify-center items-center text-center absolute right-2 top-28">
                 <img src={Crown3Icon} alt="crown" className="h-10 w-10 relative top-3 ml-6" />
                 <img src={winners[2].winnerPic} alt="winner" className="h-8 w-8" />
                 <div className="bg-white text-black relative bottom-2 px-1 pt-1 rounded-md flex flex-col items-center mt-1" style={{fontSize: '7px'}}>

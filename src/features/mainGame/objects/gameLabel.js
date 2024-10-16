@@ -51,18 +51,18 @@ class Label extends Phaser.GameObjects.Container {
         1
       );
       background.strokeRoundedRect(
-        -this.backgroundStyle.width / 2, // Offset X
-        -this.backgroundStyle.height / 2, // Offset Y
-        this.backgroundStyle.width, // Width
-        this.backgroundStyle.height, // Height
-        this.backgroundStyle.borderRadius // Border radius for corners
+        -this.backgroundStyle.width / 2, 
+        -this.backgroundStyle.height / 2, 
+        this.backgroundStyle.width, 
+        this.backgroundStyle.height, 
+        this.backgroundStyle.borderRadius 
       );
     }
 
-    // Create a text object for the label
+    
     this.labelText = this.scene.add.text(0, 0, text, this.textStyle).setOrigin(0.5, 0.5);
 
-    // Create an image if an image key is provided
+    
     this.image = null;
     if (imageKey) {
       this.image = this.scene.add.image(-this.backgroundStyle.width / 2 + 20, 0, imageKey);
@@ -70,7 +70,7 @@ class Label extends Phaser.GameObjects.Container {
       this.image.setScale(0.7);
     }
 
-    // Adjust the text position if there is an image
+    
     if (this.image) {
       this.labelText.setX(this.labelText.x + 20); // Move text slightly right to accommodate the image
     }

@@ -9,7 +9,7 @@ const MainGame = ({ config }) => {
     const applyCanvasStyles = () => {
       const canvas = document.querySelector('#game-container canvas');
       if (canvas) {
-        canvas.style.borderRadius = '40px';
+        canvas.style.borderBottomRadius = '40px';
         canvas.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)'; // Optional: for additional style
       }
     };
@@ -21,9 +21,7 @@ const MainGame = ({ config }) => {
 
   return (
     <div 
-      id="game-container" 
-      className="main-container flex justify-center items-center" 
-      style={{ borderRadius: '40px', overflow: 'hidden' }}
+      id="game-container"
     ></div>
   );
 }
