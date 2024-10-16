@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Phaser from 'phaser';
 
 import MainGame from './MainGame';
@@ -10,8 +10,9 @@ const GameScreen = () => {
   const config = {
     type: Phaser.AUTO,
     parent: 'game-container',
-    width: 350,
-    height: 500,
+    width: 320,
+    height: 558,
+   
     scene: new GameScene({ setScore }),
     physics: {
       default: 'arcade',
@@ -19,14 +20,17 @@ const GameScreen = () => {
         gravity: { y: 0 },
       },
     },
+    scale: {
+      mode: Phaser.Scale.RESIZE, // Adjust Phaser to resize according to container
+      autoCenter: Phaser.Scale.CENTER_BOTH, // Center the game
+    },
   };
 
 
 
 
   return (
-    <div className=''>
-      
+    <div>
       <MainGame config={config} />
     </div>
   );
