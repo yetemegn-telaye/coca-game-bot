@@ -1,7 +1,9 @@
 import ProfilePic from '../../assets/images/Avatar.png';
 import CoinCapIcon from '../../assets/icons/coca-cola-cap2-removebg-preview 1.svg';
 import TrophyWhite from '../../assets/icons/trophy-white.svg';
+import { useNavigate } from 'react-router-dom';
 const MenuHeroSection = () => {
+    const navigate = useNavigate();
     return(
         <div className="flex flex-col items-center gap-4 bg-hero-image bg-no-repeat bg-center bg-contain" style={{backgroundSize:'65%'}}>
             <div className='flex flex-col items-center justify-center gap-2'>
@@ -22,7 +24,7 @@ const MenuHeroSection = () => {
                 </button>
             </div>
             <div className='flex flex-col items-center justify-center gap-3'>
-                <button className='border border-white py-1 rounded-md px-14'>Play</button>
+                <button className='border border-white py-1 rounded-md px-14' onClick={()=>navigate('/game-screen')}>Play</button>
                 <button className='border border-white py-1 rounded-md px-14'>Invite Friends</button>
                 <p className='font-extralight' style={{fontSize:'8px'}}>Invite friends and earn 500 caps!</p>
             </div>
