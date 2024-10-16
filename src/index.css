@@ -22,7 +22,7 @@ code {
     margin: 20px auto;
     margin-bottom: 10px;
     max-height: 100vh;
-    max-width: 320px;
+    max-width: 300px;
     @apply text-white;
     border-radius: 20px;
   }
