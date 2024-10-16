@@ -38,13 +38,13 @@ const players = [
 
 const LeaderBoard = ()=>{
     return(
-        <div className="main-container bg-gradient-primary px-3">
+        <div className="main-container bg-gradient-primary">
            <TopBar title="LeaderBoard" />
            <LeaderBoardTopSection />
            <div className="flex flex-col items-center relative bottom-2">
                 <img src={CocaPic} alt="coca" className="h-26 w-26" />
            </div>
-           <div className="flex flex-col gap-3 pb-5">
+           <div className="flex flex-col gap-3 px-3 pb-5">
            {players.map((player,index)=>
             <LeaderboardCard key={index} player={player} />
            )}

@@ -3,6 +3,7 @@ import Phaser from 'phaser';
 
 import MainGame from './MainGame';
 import GameScene from './scenes/gameScene';
+import TopBar from '../../components/TopBar';
 
 const GameScreen = () => {
   const [score, setScore] = useState(0);
@@ -30,7 +31,9 @@ const GameScreen = () => {
 
 
   return (
-    <div>
+    <div className="main-container" 
+    style={{ borderBottomRadius: '20px',overflow: 'hidden' }}>
+      <TopBar title="Game" />
       <MainGame config={config} />
     </div>
   );
