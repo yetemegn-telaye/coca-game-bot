@@ -22,15 +22,19 @@ class Balloon extends Phaser.GameObjects.Image {
   }
 
   popBalloon() {
-    this.scene.tweens.add({
-      targets: this,
-      scaleX: 0,
-      scaleY: 0,
-      duration: 200,
-      ease: 'Power1',
-      onComplete: () => {
-        this.destroy();
-      }
+    // Hide the balloon and disable its interaction
+    this.setVisible(false);
+    this.disableInteractive();
+
+    // Create explosion animation at the balloon's position
+    const explosion = this.scene.add.sprite(this.x, this.y, 'explosion');
+    explosion.setScale(this.size / explosion.width, this.size / explosion.height);
+
+    explosion.play('explode');
+
+    explosion.on('animationcomplete', () => {
+      explosion.destroy();
+      this.destroy(); // Destroy the balloon after the animation is complete
     });
   }
 }

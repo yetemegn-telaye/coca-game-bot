@@ -8,6 +8,7 @@ import SkullIcecube from '../../../assets/images/skullIcecube.png';
 import CocaIcecube from '../../../assets/images/bottleIcecube.png';
 import BonusIcecube from '../../../assets/images/coinIcecube.png';
 import GreenBalloon from '../../../assets/images/balloon.svg';
+import Explosion from '../../../assets/images/spritesheet/explosion.png';
 import { move } from '../../../utils/dropMovement';
 
 class GameScene extends Phaser.Scene {
@@ -25,6 +26,10 @@ class GameScene extends Phaser.Scene {
     this.load.image('coca_icecube', CocaIcecube);
     this.load.image('bonus_icecube', BonusIcecube);
     this.load.image('green_balloon', GreenBalloon);
+    this.load.spritesheet('explosion',Explosion , {
+      frameWidth: 16,  
+      frameHeight: 16,
+    });
   }
 
   create() {
@@ -35,6 +40,12 @@ class GameScene extends Phaser.Scene {
     this.background = this.add.image(canvasWidth / 2, canvasHeight / 2, 'background');
     this.background.setDisplaySize(canvasWidth, canvasHeight);
 
+    this.anims.create({
+      key: 'explode',
+      frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 3 }), // Adjust frame numbers
+      frameRate: 20,
+      repeat: 0
+    });
   
     this.balloons = [
       new Balloon(this, canvasWidth / 2, canvasHeight, 'green_balloon', 100, 2), // Green balloon with speed 2
