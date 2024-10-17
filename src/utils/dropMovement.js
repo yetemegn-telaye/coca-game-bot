@@ -5,11 +5,15 @@ import Phaser from "phaser";
     this.y = 0;
     this.x = randomX; 
   };
-export const move = function() {
-    this.y += this.speed;
-    if (this.y > this.scene.sys.canvas.height) {
-      this.resetPosition();
+  export function move(scene) {
+    this.y += this.speed; // Move downward by increasing the y value
+  
+    // If the object moves off the bottom of the screen, reset it to the top
+    if (this.y > scene.sys.canvas.height) {
+      this.y = 0; // Reset to the top of the canvas
+      this.x = Phaser.Math.Between(0, scene.sys.canvas.width); // Reset to a random X position
     }
-  };
+  }
+  
 
   
