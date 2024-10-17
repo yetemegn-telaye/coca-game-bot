@@ -21,7 +21,7 @@ code {
   .main-container{
     margin: 0 auto;
     margin-bottom: 10px;
-    max-height: 100%;
+    min-height: 100%;
     max-width: 100vh;
     @apply text-white;
   }
