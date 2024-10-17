@@ -7,6 +7,7 @@ import TrophyIcon from '../../../assets/icons/Group.png';
 import SkullIcecube from '../../../assets/images/skullIcecube.png';
 import CocaIcecube from '../../../assets/images/bottleIcecube.png';
 import BonusIcecube from '../../../assets/images/coinIcecube.png';
+import GreenBalloon from '../../../assets/images/balloon.svg';
 import { move } from '../../../utils/dropMovement';
 
 class GameScene extends Phaser.Scene {
@@ -23,6 +24,7 @@ class GameScene extends Phaser.Scene {
     this.load.image('skull_icecube', SkullIcecube);
     this.load.image('coca_icecube', CocaIcecube);
     this.load.image('bonus_icecube', BonusIcecube);
+    this.load.image('green_balloon', GreenBalloon);
   }
 
   create() {
@@ -35,9 +37,9 @@ class GameScene extends Phaser.Scene {
 
   
     this.balloons = [
-      new Balloon(this, canvasWidth / 2, canvasHeight, 0xff0000, 40, 2),  // Red balloon with speed 2
-      new Balloon(this, canvasWidth / 4, canvasHeight, 0x00ff00, 30, 3),  // Green balloon with speed 3
-      new Balloon(this, (3 * canvasWidth) / 4, canvasHeight, 0x0000ff, 50, 2) // Blue balloon with speed 1
+      new Balloon(this, canvasWidth / 2, canvasHeight, 'green_balloon', 100, 2), // Green balloon with speed 2
+      new Balloon(this, canvasWidth / 2, canvasHeight, 'green_balloon', 80, 1),  // Green balloon with speed 3
+      new Balloon(this, canvasWidth / 2, canvasHeight, 'green_balloon', 100, 1) 
     ];
 
   
@@ -59,7 +61,7 @@ class GameScene extends Phaser.Scene {
 
   update() {
  
-    this.balloons.forEach(balloon => balloon.move());
+    this.balloons.forEach(balloon => balloon.move(this));
 
    
     this.ice_cubes.forEach(ice_cube => {
