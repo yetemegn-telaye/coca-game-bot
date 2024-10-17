@@ -31,7 +31,7 @@ const GameScreen = () => {
 
 
   return (
-    <div className="main-container" 
+    <div className="main-container bg-gradient-primary" 
     style={{ borderBottomRadius: '20px',overflow: 'hidden' }}>
       <TopBar title="Game" />
       <MainGame config={config} />
