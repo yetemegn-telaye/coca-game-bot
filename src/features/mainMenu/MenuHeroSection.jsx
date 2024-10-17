@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const MenuHeroSection = () => {
     const navigate = useNavigate();
     return(
-        <div className="flex flex-col items-center gap-4 bg-hero-image bg-no-repeat bg-center pt-3 bg-contain" style={{backgroundSize:'65%'}}>
+        <div className="flex flex-col items-center gap-4 bg-hero-image bg-no-repeat bg-center pt-3 bg-contain" style={{backgroundSize:'60%'}}>
             <div className='flex flex-col items-center justify-center gap-2'>
                 <img src={ProfilePic} alt="profile" className='w-20 h-20'/>
                 <p className='text-xs'>Ayantu Lemma</p>
