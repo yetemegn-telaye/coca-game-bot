@@ -35,16 +35,16 @@ class Balloon extends Phaser.GameObjects.Image {
     explosion.on('animationcomplete', () => {
       explosion.destroy();
       
-      this.resetBalloon(); 
+      // this.resetBalloon(); 
     });
   }
 
-  resetBalloon() {
+  // resetBalloon() {
    
-    this.resetPosition(); 
-    this.setVisible(true);
-    this.setInteractive();
-  }
+  //   this.resetPosition(); 
+  //   this.setVisible(true);
+  //   this.setInteractive();
+  // }
 }
 
 export default Balloon;

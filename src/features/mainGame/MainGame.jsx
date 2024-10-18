@@ -21,7 +21,7 @@ const MainGame = ({ config }) => {
 
   return (
     <div 
-      id="game-container"
+      id="game-container" style={{ flexGrow: 1 }}
     ></div>
   );
 }
