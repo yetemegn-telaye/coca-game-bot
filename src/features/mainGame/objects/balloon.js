@@ -10,7 +10,6 @@ class Balloon extends Phaser.GameObjects.Image {
     this.size = size;
     this.speed = speed;
 
-    // Ensure move and resetPosition functions are bound to this instance
     this.move = move.bind(this);
     this.resetPosition = resetPosition.bind(this);
 
@@ -23,11 +22,11 @@ class Balloon extends Phaser.GameObjects.Image {
 
  
   popBalloon() {
-    // Hide the balloon and disable its interaction
+  
     this.setVisible(false);
     this.disableInteractive();
 
-    // Create explosion animation at the balloon's position
+   
     const explosion = this.scene.add.sprite(this.x, this.y, 'explosion');
     explosion.setScale(this.size / explosion.width, this.size / explosion.height);
 
@@ -36,14 +35,13 @@ class Balloon extends Phaser.GameObjects.Image {
     explosion.on('animationcomplete', () => {
       explosion.destroy();
       
-      // Reset the balloon position
       this.resetBalloon(); 
     });
   }
 
   resetBalloon() {
-    // Reset the balloon's position and make it visible again
-    this.resetPosition(); // Use the resetPosition function to move the balloon to its new position
+   
+    this.resetPosition(); 
     this.setVisible(true);
     this.setInteractive();
   }
