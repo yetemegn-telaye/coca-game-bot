@@ -8,7 +8,7 @@ class Label extends Phaser.GameObjects.Container {
     const defaultTextStyle = {
       fontSize: '16px',
       color: '#020202',
-      fontFamily: 'inter',
+      fontFamily: 'Poppins',
       fontStyle: 'bold',
       padding: { x: 0, y: 5 },
       align: 'center'
