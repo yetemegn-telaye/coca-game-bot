@@ -48,9 +48,9 @@ class GameScene extends Phaser.Scene {
     });
   
     this.balloons = [
-      new Balloon(this, canvasWidth / 2, canvasHeight, 'green_balloon', 100, 2), // Green balloon with speed 2
-      new Balloon(this, canvasWidth / 2, canvasHeight, 'green_balloon', 80, 1),  // Green balloon with speed 3
-      new Balloon(this, canvasWidth / 2, canvasHeight, 'green_balloon', 100, 1) 
+      new Balloon(this, canvasWidth / 2, canvasHeight, 'green_balloon', 70, 2), // Green balloon with speed 2
+      new Balloon(this, canvasWidth / 2, canvasHeight, 'green_balloon', 70, 1),  // Green balloon with speed 3
+      new Balloon(this, canvasWidth / 2, canvasHeight, 'green_balloon', 70, 1) 
     ];
 
   
@@ -76,8 +76,8 @@ class GameScene extends Phaser.Scene {
 
    
     this.ice_cubes.forEach(ice_cube => {
-      ice_cube.displayHeight = 70;
-      ice_cube.displayWidth = 70;
+      ice_cube.displayHeight = 80;
+      ice_cube.displayWidth = 80;
       ice_cube.y += 1;
       if (ice_cube.y > this.sys.canvas.height) {
         ice_cube.y = 0;

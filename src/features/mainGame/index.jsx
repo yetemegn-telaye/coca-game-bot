@@ -12,7 +12,7 @@ const GameScreen = () => {
     type: Phaser.AUTO,
     parent: 'game-container',
     width: 320,
-    height: 558,
+    height: 600,
    
     scene: new GameScene({ setScore }),
     physics: {
