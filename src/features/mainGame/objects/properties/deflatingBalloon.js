@@ -5,14 +5,14 @@ export const  deflatingBalloonProperties = {
     color: 'big_balloon', 
     speed: 3,
     level: 4,
-    rewardMultiplier: 0,
+    rewardMultiplier: 3,
     rotationSpeed: 1,
     animation: {
         duration: 400,
         ease: 'Back.easeIn',
       },
     get score() {
-        return 1 * this.level;
+        return 1 * this.rewardMultiplier;
     },
     glow: true,
     particleTrail: true,

@@ -1,5 +1,3 @@
-var colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange', 'pink', 'brown', 'gray', 'black'];
-
 export const bigBalloonProperties = {
     alias: 'big_balloon',
     health: 3,
@@ -15,11 +13,12 @@ export const bigBalloonProperties = {
     animation: {
         duration: 400,
         ease: 'Back.easeIn',
-      },
+    },
     get score() {
         return 1 * this.level * this.rewardMultiplier;
     },
     color_change_rate: 0,
+    inflationRate: 0.05
 
 
 

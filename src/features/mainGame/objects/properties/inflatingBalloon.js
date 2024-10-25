@@ -1,16 +1,18 @@
 export const inflatingBalloonProperties = {
     alias: 'inflating_balloon',
-    health: 5, 
-    size: 1, 
+    health: 2, 
+    size: 50, 
     color: 'green_balloon', 
     speed: 2,
-    level: 4,
+    // level: 4,
+    rewardMultiplier: 3,
+    inflationRate: 50,
     get score() {
-        return 1 * this.level;
+        return 1 * this.rewardMultiplier;
     },
     animation: {
-        duration: 3000,
-        ease: 'Bounce',
+        duration: 400,
+        ease: 'Back.easeIn',
     },
     glow: true,
     particleTrail: true,

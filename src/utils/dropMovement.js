@@ -5,6 +5,7 @@ import Phaser from "phaser";
     this.y = 0;
     this.x = randomX; 
   };
+  
   export function move(scene) {
     this.y += this.speed; // Move downward by increasing the y value
   

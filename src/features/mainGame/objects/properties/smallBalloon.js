@@ -1,17 +1,20 @@
+
+
 export const smallBalloonProperties = {
     alias: 'small_balloon',
     color: 'green_balloon',
-    health: 2,
+    health: 3,
     size: 50,
     speed: 1,
-    level: 5,
+    // level: 5,
+    rewardMultiplier: 5,
     get score() {
-        return 1 * this.level;
+        return 1 * this.rewardMultiplier;
     },
     color_change_rate: 0,
     animation: {
-        duration: 3000,
-        ease: 'Cubic.easeIn',
+        duration: 1000,
+        ease: 'Back.easeIn',
     },
     glow: true,
     particleTrail: true,

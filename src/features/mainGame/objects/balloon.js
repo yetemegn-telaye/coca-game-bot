@@ -48,12 +48,10 @@ class Balloon extends Phaser.GameObjects.Image {
       this.startColorChange();
     }
 
-    // this.onPointerDown = () => {
-    if(this.alias === 'inflating_balloon'){
-      this.startInflating();
-    }else if(this.alias === 'deflating_balloon'){
-      this.startDeflating();
-    }
+    // if(this.alias === 'inflating_balloon'){
+    //   this.inflate();
+    // }else if(this.alias === 'deflating_balloon'){
+    //   this.startDeflating();
     // }
   }
 
@@ -73,26 +71,21 @@ class Balloon extends Phaser.GameObjects.Image {
   }
 
 
-  startInflating() {
-    // this.on('pointerdown', this.inflate, this);
-    this.inflateTimer = this.scene.time.addEvent({ //
-      delay: 100, // Adjust this value to control inflation speed
-      callback: this.inflate,
-      callbackScope: this,
-      loop: true
-    });
-  }
+  // startInflating() {
+  //   // this.on('pointerdown', this.inflate, this);
+  //   this.inflateTimer = this.scene.time.addEvent({ //
+  //     delay: 100, // Adjust this value to control inflation speed
+  //     callback: this.inflate,
+  //     callbackScope: this,
+  //     loop: true
+  //   });
+  // }
 
-  inflate() {
-    const inflationRate = 0.05; // Adjust this value to control inflation rate
-    const maxScale = 2; // Maximum scale before popping
-
-    this.setScale(this.scaleX + inflationRate, this.scaleY + inflationRate);
-
-    // if (this.scaleX >= maxScale) {
-    //   this.popBalloon();
-    // }
-  }
+  // inflate() {
+  //   if(this.properties.alias === 'inflating_balloon'){
+  //     this.properties.size = this.properties.size + this.properties.inflationRate;
+  //   }
+  // }
 
   startDeflating() {
     this.deflateTimer = this.scene.time.addEvent({
@@ -113,14 +106,19 @@ class Balloon extends Phaser.GameObjects.Image {
       this.popBalloon();
     }
   }
+  
+
+
 
   popBalloon() {
-    // var house_color = 'red';
-
+    // if(this.properties.alias === 'inflating_balloon'){
+    //   this.properties.size += 50;
+    // }
 
     this.properties.health -= 1;
 
-
+    
+    
     if (this.colorChangeTimer) {
       this.colorChangeTimer.remove();
       this.colorChangeTimer = null;
@@ -133,9 +131,16 @@ class Balloon extends Phaser.GameObjects.Image {
       this.deflateTimer.remove();
       this.deflateTimer = null;
     }
+    
+    // this.inflate();
 
 
-      this.scene.sound.play('pop');
+
+
+
+     if (this.properties.health <= 0) {
+
+    this.scene.sound.play('pop');
 
     this.scene.tweens.add({
       targets: this,
@@ -143,16 +148,40 @@ class Balloon extends Phaser.GameObjects.Image {
       scaleY: 0,
       duration: this.properties.animation.duration,
       ease: this.properties.animation.ease,
-      // onComplete: () => {
-      //   // this.destroy();
-      // }
+      onComplete: () => {
+        // var totalScore = this.properties.score;
+
+        let totalScore = Math.max(this.properties.score, 0); //
+        this.scene.onBalloonPopped(totalScore);
+        console.log(totalScore);
+
+   
+        this.scene.incrementPoppedCount();
+
+        if(this.properties.alias === 'golden_balloon'){
+          this.popSurroundingBalloons();
+        }
+      }
 
     });
-    // emitParticles(this.popParticles);
-    this.scene.add.particles(this.properties.popParticles).setScale(0.5).setDepth(1000);
-    this.scene.onBalloonPopped(this.properties.score);
   }
 
+
+  }
+
+
+  popSurroundingBalloons() {
+    const radius = 100; // 2cm in game units 
+    const surroundingBalloons = this.scene.balloons.filter(balloon => {
+      if (balloon === this) return false; 
+      const distance = Phaser.Math.Distance.Between(this.x, this.y, balloon.x, balloon.y);
+      return distance <= radius;
+    });
+  
+    surroundingBalloons.forEach(balloon => {
+      balloon.popBalloon();
+    });
+  }
 
 }
 

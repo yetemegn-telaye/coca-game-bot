@@ -5,10 +5,10 @@ export const goldenBalloonProperties = {
     color: 'big_balloon', 
     speed: 3,
     level: 8,
-    rewardMultiplier: 3,
+    rewardMultiplier: 10,
     rotationSpeed: 1,
     get score() {
-        return 1 * this.level * this.rewardMultiplier;
+        return 1 * this.level + this.rewardMultiplier;
     },
     animation: {
         duration: 400,
