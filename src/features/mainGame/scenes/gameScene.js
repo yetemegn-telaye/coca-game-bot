@@ -31,7 +31,7 @@ class GameScene extends Phaser.Scene {
     this.score = 0; 
     this.place = 1; 
     this.lastSpawnTime = 0;
-    this.spawnInterval = 8000;
+    this.spawnInterval = 9000;
     this.balloons = [];
     this.poppedBalloonCounter = 0;
   }
@@ -75,26 +75,26 @@ class GameScene extends Phaser.Scene {
     // ];
 
   
-    this.ice_cubes = [
-      this.add.image(Phaser.Math.Between(0, canvasWidth), Phaser.Math.Between(0, canvasHeight), 'skull_icecube').setInteractive(),
-      this.add.image(Phaser.Math.Between(0, canvasWidth), Phaser.Math.Between(0, canvasHeight), 'coca_icecube').setInteractive(),
-      this.add.image(Phaser.Math.Between(0, canvasWidth), Phaser.Math.Between(0, canvasHeight), 'bonus_icecube').setInteractive()
-    ];
+    // this.ice_cubes = [
+    //   this.add.image(Phaser.Math.Between(0, canvasWidth), Phaser.Math.Between(0, canvasHeight), 'skull_icecube').setInteractive(),
+    //   this.add.image(Phaser.Math.Between(0, canvasWidth), Phaser.Math.Between(0, canvasHeight), 'coca_icecube').setInteractive(),
+    //   this.add.image(Phaser.Math.Between(0, canvasWidth), Phaser.Math.Between(0, canvasHeight), 'bonus_icecube').setInteractive()
+    // ];
 
  
-    this.scoreLabel = new Label(this, canvasWidth / 5, 30, `Score: ${this.score}`, {
+    this.scoreLabel = new Label(this, canvasWidth / 4, 30, `Score: ${this.score}`, {
       background: { backgroundColor: '#fffff', width: 100 }
     }, 'cork_icon');
 
-    this.placeLabel = new Label(this, (3 * canvasWidth) / 5, 30, `Place: ${this.place}st`, {
+    this.placeLabel = new Label(this, (3 * canvasWidth) / 4, 30, `Place: ${this.place}st`, {
       background: { backgroundColor: '#fffff', width: 100 }
     }, 'trophy_icon');
   
     // this.poppedCountText = this.add.text(10, 50, 'Popped: 0', { fontSize: '24px', fill: '#fff' });
 
-    this.poppedBalloonCountLabel = new Label(this, canvasWidth / 5, 70, `Count: ${this.poppedBalloonCounter}`, {
-      background: { backgroundColor: '#fffff', width: 100 }
-    }, 'cork_icon');
+    // this.poppedBalloonCountLabel = new Label(this, canvasWidth / 5, 70, `Count: ${this.poppedBalloonCounter}`, {
+    //   background: { backgroundColor: '#fffff', width: 100 }
+    // }, 'cork_icon');
 
   }
 
@@ -124,15 +124,15 @@ class GameScene extends Phaser.Scene {
     this.lastSpawnTime = time;
   }
   
-    this.ice_cubes.forEach(ice_cube => {
-      ice_cube.displayHeight = 70;
-      ice_cube.displayWidth = 70;
-      ice_cube.y += 1;
-      if (ice_cube.y > this.sys.canvas.height) {
-        ice_cube.y = 0;
-        ice_cube.x = Phaser.Math.Between(0, this.sys.canvas.width);
-      }
-    });
+    // this.ice_cubes.forEach(ice_cube => {
+    //   ice_cube.displayHeight = 70;
+    //   ice_cube.displayWidth = 70;
+    //   ice_cube.y += 1;
+    //   if (ice_cube.y > this.sys.canvas.height) {
+    //     ice_cube.y = 0;
+    //     ice_cube.x = Phaser.Math.Between(0, this.sys.canvas.width);
+    //   }
+    // });
 
     
     // this.scoreLabel.setText(`Score: ${this.score}`);
@@ -244,13 +244,13 @@ class GameScene extends Phaser.Scene {
 
 
 
-  incrementPoppedCount() {
-    this.poppedBalloonCounter++;
-    this.poppedBalloonCountLabel.setText(`Popped: ${this.poppedBalloonCounter}`);
+//   incrementPoppedCount() {
+//     this.poppedBalloonCounter++;
+//     this.poppedBalloonCountLabel.setText(`Popped: ${this.poppedBalloonCounter}`);
 
-    // this.poppedBalloonCountLabel.setText(`Count: ${this.poppedBalloonCount}`);
+//     // this.poppedBalloonCountLabel.setText(`Count: ${this.poppedBalloonCount}`);
 
-}
+// }
 }
 
 export default GameScene;

@@ -20,15 +20,18 @@ export const normalBalloonProperties = {
     popParticles: 'confetti',
 
 
-    // onClick: (balloon) => {
-    //   balloon.health = 0;
-    //   if(balloon.health === 0){
-    //     alert('pop');
-    //     // balloon.destroy();
-    //   }
-    // },
-    // onPop: (balloon) => {
-    //   this.score = balloon.score;
-    // },
-    // splash: 'betty'
+    click: (balloon) => {
+      alert('clicked');
+      // balloon.health -= 1;
+      
+      // if(balloon.health === 0){
+      //   balloon.destroy();
+      // }
+      
+    },
+    onPop: (balloon) => {
+      alert('poped');
+      // this.score = balloon.score;
+    },
+   
 }
