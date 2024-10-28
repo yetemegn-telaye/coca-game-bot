@@ -158,8 +158,9 @@ class GameScene extends Phaser.Scene {
 
   
   addScore(points){
-    this.score += points;
-    this.scoreLabel.setText(`Score: ${this.score}`);
+    var totalScore = this.properties.onPop;
+    this.scoreLabel.setText(`Score: ${this.totalScore}`);
+    
   }
 
   getPlaceSuffix(place) {
@@ -184,8 +185,11 @@ class GameScene extends Phaser.Scene {
 
 
     let balloonType;
+
     if(this.score < 2){
       balloonType = normalBalloonProperties;
+    }else {
+      balloonType = smallBalloonProperties;
     }
     // else if(this.score > 2){
     //   balloonType = bombBalloonProperties;

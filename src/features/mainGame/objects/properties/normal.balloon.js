@@ -1,3 +1,4 @@
+let totalScore = 0;
 export const normalBalloonProperties = {
     alias: 'normal',
     size: 55,
@@ -31,13 +32,16 @@ export const normalBalloonProperties = {
       
     },
     onPop: (balloon) => {
-      // var totalScore = 0;
-      // totalScore += balloon.score;
+      totalScore += balloon.properties.score;
 
-      //remove balloon
+      // this.scoreLabel.setText(` ${totalScore}`);
+      balloon.scene.score = totalScore;
+      balloon.scene.scoreLabel.setText(`Score: ${balloon.scene.score}`);
+
       balloon.destroy();
-      alert("popped");
-      // this.score = balloon.score;
-    },
-   
+      // this.scene.sound.play('pop');
+
+      return totalScore;
+    
+    }
 }
