@@ -7,6 +7,8 @@ class Balloon extends Phaser.GameObjects.Image {
 
     scene.add.existing(this);
 
+    this.properties = properties;
+
     this.alias = properties.alias;
     this.size = properties.size;
     this.speed = properties.speed;
@@ -36,8 +38,10 @@ class Balloon extends Phaser.GameObjects.Image {
 
     this.setScale(this.size / this.width, this.size / this.height);
     this.setInteractive();
-    this.on('pointerdown', () => { properties.click(this) });  
-    this.on('destroy', () => { properties.onPop(this) });    
+    this.on('pointerdown', () => { properties.click(this)});  
+    // this.on('destroy', () => { properties.onPop(this) });  
+    // this.on('pointerdown', () => properties.click);
+    // this.on('destroy', () => properties.onPop);  
   
     // this.on('destroy', properties.onPop, properties);
 

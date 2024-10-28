@@ -176,6 +176,7 @@ class GameScene extends Phaser.Scene {
     this.balloons.forEach(balloon => balloon.destroy());
     this.balloons = [];
 
+
     
     const canvasWidth = this.sys.canvas.width;
     const canvasHeight = this.sys.canvas.height;
@@ -183,54 +184,60 @@ class GameScene extends Phaser.Scene {
 
 
     let balloonType;
-
-    switch (true) {
-      case this.score < 2: // level 1 - 9
-        balloonType = Phaser.Math.RND.pick([normalBalloonProperties, bombBalloonProperties]);
-        balloonType.speed = 1.5;
-        break;
-      case this.score < 4: // level 2 - 13
-        // balloonType = Phaser.Math.RND.pick([normalBalloonProperties, colorChangingBalloonProperties]);
-        balloonType = Phaser.Math.RND.pick([normalBalloonProperties, bombBalloonProperties]);
-        balloonType.speed = 1.5;
-        break;
-      case this.score < 6: // level 3 - 21
-        balloonType = Phaser.Math.RND.pick([normalBalloonProperties, bombBalloonProperties]);
-        balloonType.speed = 1.5;       
-        break;
-      case this.score < 8: // level 4 - 
-        balloonType = Phaser.Math.RND.pick([smallBalloonProperties, bigBalloonProperties, bombBalloonProperties]);
-        balloonType.speed = 1.9; 
-        break;
-      case this.score < 10: // level 5 - 
-        balloonType = Phaser.Math.RND.pick([smallBalloonProperties, bigBalloonProperties, bombBalloonProperties]);;
-        balloonType.speed = 1.9; 
-        break;
-      case this.score < 12: // level 6 - 
-        balloonType = Phaser.Math.RND.pick([smallBalloonProperties, bigBalloonProperties, bombBalloonProperties]);
-        balloonType.speed = 1.9; 
-        break;
-      case this.score < 14: // level 7 - 
-      balloonType = Phaser.Math.RND.pick([smallBalloonProperties, bigBalloonProperties, normalBalloonProperties, colorChangingBalloonProperties, goldenBalloonProperties, bombBalloonProperties]);
-      balloonType.speed = 3; 
-        break;
-      case this.score < 16: // level 8 - 
-        balloonType = Phaser.Math.RND.pick([smallBalloonProperties, bigBalloonProperties, normalBalloonProperties, colorChangingBalloonProperties, bombBalloonProperties]);
-        balloonType.speed = 3.5; 
-        break;
-      case this.score < 18: // level 9 - 
-        balloonType = Phaser.Math.RND.pick([smallBalloonProperties, bigBalloonProperties, normalBalloonProperties, colorChangingBalloonProperties, goldenBalloonProperties, bombBalloonProperties]);
-        balloonType.speed = 4; 
-        break;
-      case this.score < 20: // level 10 - 
-        balloonType = Phaser.Math.RND.pick([smallBalloonProperties, bigBalloonProperties, normalBalloonProperties, colorChangingBalloonProperties, goldenBalloonProperties, bombBalloonProperties]);
-        balloonType.speed = 4; 
-        break;
-      default:
-        balloonType = Phaser.Math.RND.pick([normalBalloonProperties, colorChangingBalloonProperties, smallBalloonProperties, bigBalloonProperties, goldenBalloonProperties, bombBalloonProperties]);
-        balloonType.speed = 3; 
-        break;
+    if(this.score < 2){
+      balloonType = normalBalloonProperties;
     }
+    // else if(this.score > 2){
+    //   balloonType = bombBalloonProperties;
+    // }
+
+    // switch (true) {
+    //   case this.score < 2: // level 1 - 9
+    //     balloonType = Phaser.Math.RND.pick([normalBalloonProperties, bombBalloonProperties]);
+    //     balloonType.speed = 1.5;
+    //     break;
+      // case this.score < 4: // level 2 - 13
+      //   // balloonType = Phaser.Math.RND.pick([normalBalloonProperties, colorChangingBalloonProperties]);
+      //   balloonType = Phaser.Math.RND.pick([normalBalloonProperties, bombBalloonProperties]);
+      //   balloonType.speed = 1.5;
+      //   break;
+      // case this.score < 6: // level 3 - 21
+      //   balloonType = Phaser.Math.RND.pick([normalBalloonProperties, bombBalloonProperties]);
+      //   balloonType.speed = 1.5;       
+      //   break;
+      // case this.score < 8: // level 4 - 
+      //   balloonType = Phaser.Math.RND.pick([smallBalloonProperties, bigBalloonProperties, bombBalloonProperties]);
+      //   balloonType.speed = 1.9; 
+      //   break;
+      // case this.score < 10: // level 5 - 
+      //   balloonType = Phaser.Math.RND.pick([smallBalloonProperties, bigBalloonProperties, bombBalloonProperties]);;
+      //   balloonType.speed = 1.9; 
+      //   break;
+      // case this.score < 12: // level 6 - 
+      //   balloonType = Phaser.Math.RND.pick([smallBalloonProperties, bigBalloonProperties, bombBalloonProperties]);
+      //   balloonType.speed = 1.9; 
+      //   break;
+      // case this.score < 14: // level 7 - 
+      // balloonType = Phaser.Math.RND.pick([smallBalloonProperties, bigBalloonProperties, normalBalloonProperties, colorChangingBalloonProperties, goldenBalloonProperties, bombBalloonProperties]);
+      // balloonType.speed = 3; 
+      //   break;
+      // case this.score < 16: // level 8 - 
+      //   balloonType = Phaser.Math.RND.pick([smallBalloonProperties, bigBalloonProperties, normalBalloonProperties, colorChangingBalloonProperties, bombBalloonProperties]);
+      //   balloonType.speed = 3.5; 
+      //   break;
+      // case this.score < 18: // level 9 - 
+      //   balloonType = Phaser.Math.RND.pick([smallBalloonProperties, bigBalloonProperties, normalBalloonProperties, colorChangingBalloonProperties, goldenBalloonProperties, bombBalloonProperties]);
+      //   balloonType.speed = 4; 
+      //   break;
+      // case this.score < 20: // level 10 - 
+      //   balloonType = Phaser.Math.RND.pick([smallBalloonProperties, bigBalloonProperties, normalBalloonProperties, colorChangingBalloonProperties, goldenBalloonProperties, bombBalloonProperties]);
+      //   balloonType.speed = 4; 
+      //   break;
+      // default:
+      //   balloonType = Phaser.Math.RND.pick([normalBalloonProperties, colorChangingBalloonProperties, smallBalloonProperties, bigBalloonProperties, goldenBalloonProperties, bombBalloonProperties]);
+      //   balloonType.speed = 3; 
+      //   break;
+    // }
 
     // const adjustBalloonSpeed = {
     //   ...balloonType,

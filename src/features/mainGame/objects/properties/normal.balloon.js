@@ -21,16 +21,22 @@ export const normalBalloonProperties = {
 
 
     click: (balloon) => {
-      alert('clicked');
-      // balloon.health -= 1;
       
-      // if(balloon.health === 0){
-      //   balloon.destroy();
-      // }
+      balloon.health -= 1;
+      alert('clicked');
+
+      if(balloon.health === 0){
+        balloon.properties.onPop(balloon); //
+      }
       
     },
     onPop: (balloon) => {
-      alert('poped');
+      // var totalScore = 0;
+      // totalScore += balloon.score;
+
+      //remove balloon
+      balloon.destroy();
+      alert("popped");
       // this.score = balloon.score;
     },
    
