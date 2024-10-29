@@ -33,6 +33,8 @@ class GameScene extends Phaser.Scene {
     this.lastSpawnTime = 0;
     this.spawnInterval = 9000;
     this.balloons = [];
+
+    this.scoreMultiplier = 1;
     this.poppedBalloonCounter = 0;
   }
 
@@ -41,6 +43,7 @@ class GameScene extends Phaser.Scene {
     this.load.audio('pop', PopSound);
     this.load.image('cork_icon', CorkIcon);
     this.load.image('trophy_icon', TrophyIcon);
+
     this.load.image('skull_icecube', SkullIcecube);
     this.load.image('coca_icecube', CocaIcecube);
     this.load.image('bonus_icecube', BonusIcecube);

@@ -3,6 +3,7 @@ import { move, resetPosition } from '../../../utils/dropMovement';
 
 class Balloon extends Phaser.GameObjects.Image {
   constructor(scene, x, y, properties) {
+
     super(scene, x, y, properties.color);
 
     scene.add.existing(this);
@@ -10,18 +11,22 @@ class Balloon extends Phaser.GameObjects.Image {
     this.properties = properties;
 
     this.alias = properties.alias;
+    this.scene = scene;
     this.size = properties.size;
+
     this.speed = properties.speed;
     this.health = properties.health;
     this.color = properties.color;
     this.rotationSpeed = properties.rotationSpeed;
-    this.rewardMultiplier = properties.rewardMultiplier;
+
     this.score = properties.score;
     this.glow = properties.glow;
     this.particleTrail = properties.particleTrail;
     this.popParticles = properties.popParticles;
+
     this.rightColorRewardMultiplier = properties.rightColorRewardMultiplier;
     this.wrongColorRewardMultiplier = properties.wrongColorRewardMultiplier;
+
     this.color_change_rate = properties.color_change_rate;
     this.texture = properties.texture;
   
@@ -38,96 +43,25 @@ class Balloon extends Phaser.GameObjects.Image {
 
     this.setScale(this.size / this.width, this.size / this.height);
     this.setInteractive();
-    this.on('pointerdown', () => { 
-      properties.click(this);
-    });  
 
-    // this.scene.scoreLabel.setText(`Score: ${properties.onPop}`);
-
-    // this.on('destroy', () => { properties.onPop(this) });  
-    // this.on('pointerdown', () => properties.click);
-    // this.on('destroy', () => properties.onPop);  
-  
-    // this.on('destroy', properties.onPop, properties);
-
+    this.on('pointerdown', () => properties.click(this));
+    this.on('destroy', () => properties.onPop(this));
 
   }
 
-  
+  animate() {
+    this.scene.tweens.add({
+      targets: this,
+      scaleX: 0,
 
-
-
-  // popBalloon() {
-
-
-  //   this.properties.health -= 1;
-
-    
-    
-  //   if (this.colorChangeTimer) {
-  //     this.colorChangeTimer.remove();
-  //     this.colorChangeTimer = null;
-  //   }
-  //   if (this.inflateTimer) {
-  //     this.inflateTimer.remove();
-  //     this.inflateTimer = null;
-  //   }
-  //   if (this.deflateTimer) {
-  //     this.deflateTimer.remove();
-  //     this.deflateTimer = null;
-  //   }
-    
-  //   // this.inflate();
-
-
-
-
-
-  //    if (this.properties.health <= 0) {
-
-  //   this.scene.sound.play('pop');
-
-  //   this.scene.tweens.add({
-  //     targets: this,
-  //     scaleX: 0,
-  //     scaleY: 0,
-  //     duration: this.properties.animation.duration,
-  //     ease: this.properties.animation.ease,
-  //     onComplete: () => {
-  //       // var totalScore = this.properties.score;
-
-  //       let totalScore = Math.max(this.properties.score, 0); //
-  //       this.scene.onBalloonPopped(totalScore);
-  //       console.log(totalScore);
-
-   
-  //       // this.scene.incrementPoppedCount();
-
-  //       if(this.properties.alias === 'golden_balloon'){
-  //         this.popSurroundingBalloons();
-  //       }
-  //     }
-
-  //   });
-  // }
-
-
-  // }
-
-
-  // popSurroundingBalloons() {
-  //   const radius = 100; // 2cm in game units 
-  //   const surroundingBalloons = this.scene.balloons.filter(balloon => {
-  //     if (balloon === this) return false; 
-  //     const distance = Phaser.Math.Distance.Between(this.x, this.y, balloon.x, balloon.y);
-  //     return distance <= radius;
-  //   });
-  
-  //   surroundingBalloons.forEach(balloon => {
-  //     balloon.popBalloon();
-  //   });
-  // }
-
+      scaleY: 0,
+      alpha: 0,  // Fades out the balloon
+      duration: 10000,
+      ease: 'Back.easeIn',  // You can also try other easing functions like 'Cubic.easeOut'
+        onComplete: () => {}
+    });
+  }
 }
+
 
 export default Balloon;
