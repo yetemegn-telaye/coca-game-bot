@@ -34,11 +34,15 @@ export const normalBalloonProperties = {
       
       balloon.health -= 1;
 
-        balloon.animate();
       if(balloon.health <= 0){
-       balloon.destroy();
+        balloon.animate();
+        setTimeout(() => {
+          balloon.destroy();
+        }, 500); 
+      } else {
+        balloon.animate();
       }
-      
+
     },
     onPop: (balloon) => {
 
@@ -46,7 +50,7 @@ export const normalBalloonProperties = {
 
         balloon.scene.scoreLabel.setText(`Score: ${balloon.scene.score}`);
 
-
+        
         balloon.scene.sound.play('pop');
 
     }
