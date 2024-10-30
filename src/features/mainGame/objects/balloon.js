@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { move, resetPosition } from '../../../utils/dropMovement';
+import balloon from "./balloon";
 
 class Balloon extends Phaser.GameObjects.Image {
   constructor(scene, x, y, properties) {
@@ -42,13 +43,12 @@ class Balloon extends Phaser.GameObjects.Image {
 
 
     this.setScale(this.size / this.width, this.size / this.height);
+
     this.setInteractive();
 
     this.on('pointerdown', () => properties.click(this));
-    if(this.y < scene.sys.canvas.height){
-      this.on('destroy', () => 
-        properties.onPop(this));
-    }
+    this.on('destroy', () => this.y < this.scene.sys.canvas.height ?  properties.onPop(this): console.log("Dropped"));
+
     
   // console.log(scene.sys.canvas.height)
 
@@ -63,9 +63,9 @@ class Balloon extends Phaser.GameObjects.Image {
 
     explosion.play('explode');
 
+
     explosion.on('animationcomplete', () => {
       explosion.destroy();
-      
       // this.resetBalloon(); 
     });
 

@@ -13,7 +13,14 @@ import Phaser from "phaser";
     if (this.y > scene.sys.canvas.height) {
       this.y = 0; // Reset to the top of the canvas
       this.x = Phaser.Math.Between(0, scene.sys.canvas.width); // Reset to a random X position
+
+
+      // this.destroy();
+    }else if(this.y == scene.sys.canvas.height){
+      this.destroy();
+
     }
+
   }
   
 

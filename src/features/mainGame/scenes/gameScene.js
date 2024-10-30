@@ -127,16 +127,13 @@ class GameScene extends Phaser.Scene {
   this.balloons = this.balloons.filter(balloon => {
     // this.balloons.forEach((balloon, index) => {
     balloon.move(this); 
-    if (balloon.y < -balloon.height) { //
-      balloon.destroy();
-      // this.balloons.splice(index, 1); // Remove it from the array
-      return false;
-    }
+
     return true;
   });
 
   // this.balloons.forEach(balloon => balloon.move(this));
-  
+
+
   if (time > this.lastSpawnTime + this.spawnInterval) {
     this.spawnBalloon();
     this.lastSpawnTime = time;
@@ -206,9 +203,8 @@ class GameScene extends Phaser.Scene {
       balloonType = smallBalloonProperties;
     }
 
+
     const newBalloon = new Balloon(this, x, canvasHeight, balloonType);
-    this.balloons.forEach(balloon => balloon.destroy());  //destroy());    
-    this.balloons = [];
     this.balloons.push(newBalloon);
   }
 
