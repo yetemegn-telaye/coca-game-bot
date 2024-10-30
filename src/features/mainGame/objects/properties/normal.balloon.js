@@ -41,23 +41,25 @@ export const normalBalloonProperties = {
       //   }, 500); 
       // } else {
       //   balloon.animate();
-      balloon.destroy();
+        balloon.destroy();
       }
 
     },
     onPop: (balloon) => {
 
-      // if (balloon.visible) {
-      
-      // if (this.balloons.includes(balloon)){
+
+      // const balloonPosition = { x: balloon.x, y: balloon.y };
+    
+      // console.log(`Balloon popped at position:`, balloonPosition);
+
+      // console.log(scene.y);
         balloon.scene.score += (balloon.properties.score * balloon.scene.scoreMultiplier);
 
         balloon.scene.scoreLabel.setText(`Score: ${balloon.scene.score}`);
 
+        balloon.animate();
         
         balloon.scene.sound.play('pop');
-      // }
 
-      // }
     }
 }

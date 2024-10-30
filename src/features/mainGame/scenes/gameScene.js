@@ -207,7 +207,7 @@ class GameScene extends Phaser.Scene {
     }
 
     const newBalloon = new Balloon(this, x, canvasHeight, balloonType);
-    this.balloons.forEach(balloon => balloon.setVisible(false));  //destroy());    
+    this.balloons.forEach(balloon => balloon.destroy());  //destroy());    
     this.balloons = [];
     this.balloons.push(newBalloon);
   }
