@@ -36,22 +36,28 @@ export const normalBalloonProperties = {
 
       if(balloon.health <= 0){
         balloon.animate();
-        setTimeout(() => {
-          balloon.destroy();
-        }, 500); 
-      } else {
-        balloon.animate();
+      //   setTimeout(() => {
+      //     balloon.destroy();
+      //   }, 500); 
+      // } else {
+      //   balloon.animate();
+      balloon.destroy();
       }
 
     },
     onPop: (balloon) => {
 
+      // if (balloon.visible) {
+      
+      // if (this.balloons.includes(balloon)){
         balloon.scene.score += (balloon.properties.score * balloon.scene.scoreMultiplier);
 
         balloon.scene.scoreLabel.setText(`Score: ${balloon.scene.score}`);
 
         
         balloon.scene.sound.play('pop');
+      // }
 
+      // }
     }
 }

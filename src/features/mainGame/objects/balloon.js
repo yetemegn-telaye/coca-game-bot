@@ -53,20 +53,31 @@ class Balloon extends Phaser.GameObjects.Image {
     console.log('animate')
     console.log('Before tween:', this.scaleX, this.scaleY, this.alpha); // Log initial properties
 
-    this.scene.tweens.add({
-      targets: this,
-      scaleX: 0,
+    const explosion = this.scene.add.sprite(this.x, this.y, 'explosion');
+    explosion.setScale(this.size / explosion.width, this.size / explosion.height);
 
-      scaleY: 0,
-      alpha: 0,  // Fades out the balloon
-      duration: 500,
-      ease: 'Back.easeIn',  // You can also try other easing functions like 'Cubic.easeOut'
-        onComplete: () => {
-          console.log('Tween animation completed'); 
-          console.log('After tween:', this.scaleX, this.scaleY, this.alpha); // Log properties after completion
+    explosion.play('explode');
 
-        }
+    explosion.on('animationcomplete', () => {
+      explosion.destroy();
+      
+      // this.resetBalloon(); 
     });
+
+    // this.scene.tweens.add({
+    //   targets: this,
+    //   scaleX: 0,
+
+    //   scaleY: 0,
+    //   alpha: 0,  // Fades out the balloon
+    //   duration: 500,
+    //   ease: 'Back.easeIn',  // You can also try other easing functions like 'Cubic.easeOut'
+    //     onComplete: () => {
+    //       console.log('Tween animation completed'); 
+    //       console.log('After tween:', this.scaleX, this.scaleY, this.alpha); // Log properties after completion
+
+    //     }
+    // });
   }
 }
 

@@ -21,6 +21,8 @@ import { inflatingBalloonProperties } from '../objects/properties/inflatingBallo
 import { deflatingBalloonProperties } from '../objects/properties/deflatingBalloon';
 import { goldenBalloonProperties } from '../objects/properties/goldenBalloon';
 import PopSound from '../../../assets/sounds/pop-94319.mp3';
+import Explosion from '../../../assets/images/spritesheet/explosion.png';
+
 
 class GameScene extends Phaser.Scene {
   constructor(config) {
@@ -51,6 +53,10 @@ class GameScene extends Phaser.Scene {
     this.load.image('big_balloon', BigBalloon);
     this.load.image('golden_balloon', GoldenBalloon);
     this.load.image('red_balloon', RedBalloon);
+    this.load.spritesheet('explosion',Explosion , {
+      frameWidth: 16,  
+      frameHeight: 16,
+    });
   }
 
   create() {
@@ -61,6 +67,13 @@ class GameScene extends Phaser.Scene {
     this.background = this.add.image(canvasWidth / 2, canvasHeight / 2, 'background');
     this.background.setDisplaySize(canvasWidth, canvasHeight);
 
+
+    this.anims.create({
+      key: 'explode',
+      frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 3 }), // Adjust frame numbers
+      frameRate: 20,
+      repeat: 0
+    });
 
 
     // this.spawnBalloon();
@@ -112,9 +125,11 @@ class GameScene extends Phaser.Scene {
   // });
 
   this.balloons = this.balloons.filter(balloon => {
+    // this.balloons.forEach((balloon, index) => {
     balloon.move(this); 
     if (balloon.y < -balloon.height) { //
       balloon.destroy();
+      // this.balloons.splice(index, 1); // Remove it from the array
       return false;
     }
     return true;
@@ -177,10 +192,6 @@ class GameScene extends Phaser.Scene {
 
 
   spawnBalloon() {
-    this.balloons.forEach(balloon => balloon.destroy());
-    this.balloons = [];
-
-
     
     const canvasWidth = this.sys.canvas.width;
     const canvasHeight = this.sys.canvas.height;
@@ -194,68 +205,14 @@ class GameScene extends Phaser.Scene {
     }else {
       balloonType = smallBalloonProperties;
     }
-    // else if(this.score > 2){
-    //   balloonType = bombBalloonProperties;
-    // }
 
-    // switch (true) {
-    //   case this.score < 2: // level 1 - 9
-    //     balloonType = Phaser.Math.RND.pick([normalBalloonProperties, bombBalloonProperties]);
-    //     balloonType.speed = 1.5;
-    //     break;
-      // case this.score < 4: // level 2 - 13
-      //   // balloonType = Phaser.Math.RND.pick([normalBalloonProperties, colorChangingBalloonProperties]);
-      //   balloonType = Phaser.Math.RND.pick([normalBalloonProperties, bombBalloonProperties]);
-      //   balloonType.speed = 1.5;
-      //   break;
-      // case this.score < 6: // level 3 - 21
-      //   balloonType = Phaser.Math.RND.pick([normalBalloonProperties, bombBalloonProperties]);
-      //   balloonType.speed = 1.5;       
-      //   break;
-      // case this.score < 8: // level 4 - 
-      //   balloonType = Phaser.Math.RND.pick([smallBalloonProperties, bigBalloonProperties, bombBalloonProperties]);
-      //   balloonType.speed = 1.9; 
-      //   break;
-      // case this.score < 10: // level 5 - 
-      //   balloonType = Phaser.Math.RND.pick([smallBalloonProperties, bigBalloonProperties, bombBalloonProperties]);;
-      //   balloonType.speed = 1.9; 
-      //   break;
-      // case this.score < 12: // level 6 - 
-      //   balloonType = Phaser.Math.RND.pick([smallBalloonProperties, bigBalloonProperties, bombBalloonProperties]);
-      //   balloonType.speed = 1.9; 
-      //   break;
-      // case this.score < 14: // level 7 - 
-      // balloonType = Phaser.Math.RND.pick([smallBalloonProperties, bigBalloonProperties, normalBalloonProperties, colorChangingBalloonProperties, goldenBalloonProperties, bombBalloonProperties]);
-      // balloonType.speed = 3; 
-      //   break;
-      // case this.score < 16: // level 8 - 
-      //   balloonType = Phaser.Math.RND.pick([smallBalloonProperties, bigBalloonProperties, normalBalloonProperties, colorChangingBalloonProperties, bombBalloonProperties]);
-      //   balloonType.speed = 3.5; 
-      //   break;
-      // case this.score < 18: // level 9 - 
-      //   balloonType = Phaser.Math.RND.pick([smallBalloonProperties, bigBalloonProperties, normalBalloonProperties, colorChangingBalloonProperties, goldenBalloonProperties, bombBalloonProperties]);
-      //   balloonType.speed = 4; 
-      //   break;
-      // case this.score < 20: // level 10 - 
-      //   balloonType = Phaser.Math.RND.pick([smallBalloonProperties, bigBalloonProperties, normalBalloonProperties, colorChangingBalloonProperties, goldenBalloonProperties, bombBalloonProperties]);
-      //   balloonType.speed = 4; 
-      //   break;
-      // default:
-      //   balloonType = Phaser.Math.RND.pick([normalBalloonProperties, colorChangingBalloonProperties, smallBalloonProperties, bigBalloonProperties, goldenBalloonProperties, bombBalloonProperties]);
-      //   balloonType.speed = 3; 
-      //   break;
-    // }
-
-    // const adjustBalloonSpeed = {
-    //   ...balloonType,
-    //   speed: balloonType.speed + 1
-    // };
-
-    // const randomType = Phaser.Utils.Array.GetRandom(balloonType);
     const newBalloon = new Balloon(this, x, canvasHeight, balloonType);
+    this.balloons.forEach(balloon => balloon.setVisible(false));  //destroy());    
+    this.balloons = [];
     this.balloons.push(newBalloon);
   }
 
+  
 
 
 //   incrementPoppedCount() {
