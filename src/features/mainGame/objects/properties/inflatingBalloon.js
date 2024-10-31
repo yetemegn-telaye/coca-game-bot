@@ -25,9 +25,16 @@ export const inflatingBalloonProperties = {
 
 
     inflate: function() {
+
+        console.log('inflation');
         if (this.size < this.maxSize) {
             this.size += this.inflationAmount; // Increase size
+            console.log(this.size);
         }
+
+        const scaleFactor = this.size / 35; // Assuming 35 is the original size
+        this.setScale(scaleFactor);
+        
     },
 
 
@@ -36,14 +43,18 @@ export const inflatingBalloonProperties = {
       
 
     balloon.properties.inflate();
-    
+    console.log(balloon.size);
+
+
     balloon.health -= 1;
 
     if(balloon.health <= 0){
         balloon.destroy();
     }
 
+    
     },
+
 
 
     onPop: (balloon) => {
