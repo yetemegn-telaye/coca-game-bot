@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import GameScene from '../../scenes/gameScene';
 export const bombBalloonProperties = {
     alias: 'bomb_balloon',
     size: 55,
@@ -34,36 +35,36 @@ export const bombBalloonProperties = {
 
     },
 
-    popNearbyBalloons: (balloon) => {
-        let totalScore = 0;
-        
-        const nearbyBalloons = balloon.scene.balloons.filter(otherBalloon => {
-            // Calculate the distance between the bomb balloon and other balloons
-            const distance = Phaser.Math.Distance.Between(balloon.x, balloon.y, otherBalloon.x, otherBalloon.y);
-            return otherBalloon.health > 0 && distance < balloon.radius; // Check if within radius and alive
-        });
 
-        // Pop each nearby balloon
-        nearbyBalloons.forEach(nearbyBalloon => {
-          totalScore += nearbyBalloon.properties.score;
-            nearbyBalloon.health = 0; // Set health to 0 to trigger the pop
-            nearbyBalloon.onPop(nearbyBalloon); // Call the onPop method if it exists
-        });
-    },
+    onPop: (balloon, scene) => {
 
-
-    onPop: (balloon) => {
+      // Check if the balloon is already destroyed and exit if true
+      if (balloon.destroyed) return;  
 
         balloon.animate();
+        balloon.destroyed = true;
         balloon.scene.sound.play('pop');
 
-        const nearbyScore = bombBalloonProperties.popNearbyBalloons(balloon);
 
-        balloon.scene.score += (balloon.properties.score * balloon.scene.scoreMultiplier) + + nearbyScore;;
+        console.log('balloons in scene: ',  balloon.scene.balloons);
+
+        // Filter out balloons that are not destroyed
+        const balloonsToDestroy = balloon.scene.balloons.filter(otherBalloon => !otherBalloon.destroyed);
+
+        balloonsToDestroy.forEach(otherBalloon => {
+          otherBalloon.destroy(); // Call destroy on the balloon
+          otherBalloon.destroyed = true; // Mark it as destroyed
+      });
+
+      balloon.scene.balloons = balloon.scene.balloons.filter(b => !b.destroyed);
+
+        
+      balloon.scene.score += (balloon.properties.score * balloon.scene.scoreMultiplier);  //+ nearbyScore;
+
 
         balloon.scene.scoreLabel.setText(`Score: ${balloon.scene.score}`);
 
-
+        console.log(balloon.scene.score);
     }
 
 

@@ -40,6 +40,7 @@ class GameScene extends Phaser.Scene {
     this.spawnInterval = 5000;
     this.balloons = [];
 
+     
     this.scoreMultiplier = 1;
     this.poppedBalloonCounter = 0;
   }
@@ -151,7 +152,7 @@ class GameScene extends Phaser.Scene {
     let balloonType;
 
     if(this.score <= 2){
-      balloonType = inflatingBalloonProperties;
+      balloonType = bombBalloonProperties;
       console.log(balloonType.speed, balloonType.alias);
     }else if(this.score <= 4){   // level 2
       balloonType = Phaser.Math.RND.pick([bombBalloonProperties, inflatingBalloonProperties]);
@@ -260,7 +261,16 @@ class GameScene extends Phaser.Scene {
 
 
     const newBalloon = new Balloon(this, x, canvasHeight, balloonType);
+    newBalloon.scene = this;
     this.balloons.push(newBalloon);
+    
+  }
+
+  // console.log(this.spawnBalloons());
+
+  getBalloons(){
+    console.log(this.balloons);
+    return this.balloons;
   }
 }
 
