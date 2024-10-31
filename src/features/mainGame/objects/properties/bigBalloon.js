@@ -1,38 +1,45 @@
 export const bigBalloonProperties = {
     alias: 'big_balloon',
+    size: 75,
+    speed: 1,
     health: 3,
-    size: 100,
-    color: 'green_balloon',
-    speed: 2,
-    level: 2,
-    rotationSpeed: 1,
-    rewardMultiplier: 2,
+    get color(){
+  
+        let colors = ['red','green', 'brown', 'purple', 'blue']
+        return colors[Math.floor(Math.random() * colors.length)] + '_balloon';
+    },
+    get score() {
+        return 1;
+    },
+    animation: {
+      duration: 400,
+      ease: 'Back.easeIn',
+    },
+  
+    inflationRate: 0,
     glow: true,
     particleTrail: true,
     popParticles: 'confetti',
-    animation: {
-        duration: 400,
-        ease: 'Back.easeIn',
+  
+  
+    click: (balloon) => {
+      
+      balloon.health -= 1;
+  
+      if(balloon.health <= 0){
+        balloon.destroy();
+      }
+  
     },
-    get score() {
-        return 1 * this.level * this.rewardMultiplier;
-    },
-    color_change_rate: 0,
-    inflationRate: 0.05
-
-
-
-
-
-    // onClick: function(){
-    //     this.health -= 1; 
-
-    //     if (this.health === 0) {
-    //         this.onPop(); 
-    //     }
-    // },
-    // onPop(){
-    //     big_total_score += this.score; 
-    //     return this.score;
-    // }
+    onPop: (balloon) => {
+  
+        balloon.animate();
+        balloon.scene.sound.play('pop');
+  
+        balloon.scene.score += (balloon.properties.score * balloon.scene.scoreMultiplier);
+  
+        balloon.scene.scoreLabel.setText(`Score: ${balloon.scene.score}`);
+  
+  
+    }
 }

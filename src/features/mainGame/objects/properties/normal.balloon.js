@@ -1,24 +1,16 @@
-
-
-
 export const normalBalloonProperties = {
-    alias: 'normal',
+    alias: 'normal_balloon',
     size: 55,
     speed: 1,
-
     health: 1,
     get color(){
 
-        let colors = ['red','green']
-        return colors[Math.floor(Math.random() * colors.length)] + '_balloon';
+      let colors = ['red','green', 'golden']
+      return colors[Math.floor(Math.random() * colors.length)] + '_balloon';
     },
-
-
-
     get score() {
         return 1;
     },
-
     animation: {
       duration: 400,
       ease: 'Back.easeIn',
@@ -35,24 +27,11 @@ export const normalBalloonProperties = {
       balloon.health -= 1;
 
       if(balloon.health <= 0){
-
-      //   setTimeout(() => {
-      //     balloon.destroy();
-      //   }, 500); 
-      // } else {
-      //   balloon.animate();
         balloon.destroy();
       }
 
     },
     onPop: (balloon) => {
-
-
-      // const balloonPosition = { x: balloon.x, y: balloon.y };
-    
-      // console.log(`Balloon popped at position:`, balloonPosition);
-
-      // console.log(scene.y);
 
         balloon.animate();
         balloon.scene.sound.play('pop');

@@ -1,47 +1,45 @@
-let totalScore = 0;
-
 export const smallBalloonProperties = {
-    alias: 'small_balloon',
-    color: 'green_balloon',
-    health: 3,
-    size: 45,
-    speed: 1,
-    // level: 5,
-    rewardMultiplier: 5,
-    get score() {
-        return 1 * this.rewardMultiplier;
-    },
-    color_change_rate: 0,
-    animation: {
-        duration: 1000,
-        ease: 'Back.easeIn',
-    },
-    glow: true,
-    particleTrail: true,
-    popParticles: 'confetti',
+  alias: 'small_balloon',
+  size: 45,
+  speed: 1,
+  health: 3,
+  get color(){
 
-    click: (balloon) => {
-      
-        balloon.health -= 1;
-        alert('clicked');
-  
-        if(balloon.health === 0){
-          balloon.properties.onPop(balloon); //
-        }
-        
-      },
-      onPop: (balloon) => {
-        totalScore += balloon.properties.score;
-  
-        // this.scoreLabel.setText(` ${totalScore}`);
-        balloon.scene.score = totalScore;
-        balloon.scene.scoreLabel.setText(`Score: ${balloon.scene.score}`);
-  
+      let colors = ['red','green', 'brown', 'purple', 'blue']
+      return colors[Math.floor(Math.random() * colors.length)] + '_balloon';
+  },
+  get score() {
+      return 1;
+  },
+  animation: {
+    duration: 400,
+    ease: 'Back.easeIn',
+  },
 
-        balloon.destroy();
-        // this.scene.sound.play('pop');
-  
-        return totalScore;
-      
-      }
+  inflationRate: 0,
+  glow: true,
+  particleTrail: true,
+  popParticles: 'confetti',
+
+
+  click: (balloon) => {
+    
+    balloon.health -= 1;
+
+    if(balloon.health <= 0){
+      balloon.destroy();
+    }
+
+  },
+  onPop: (balloon) => {
+
+      balloon.animate();
+      balloon.scene.sound.play('pop');
+
+      balloon.scene.score += (balloon.properties.score * balloon.scene.scoreMultiplier);
+
+      balloon.scene.scoreLabel.setText(`Score: ${balloon.scene.score}`);
+
+
+  }
 }

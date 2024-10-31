@@ -10,6 +10,10 @@ import BonusIcecube from '../../../assets/images/coinIcecube.png';
   import GreenBalloon from '../../../assets/images/balloon.svg';
 import BigBalloon from '../../../assets/images/bigBalloon.svg';
 import GoldenBalloon from '../../../assets/images/goldenBalloon.svg';
+import BlueBalloon from '../../../assets/images/blueBalloon.svg';
+import PurpleBalloon from '../../../assets/images/purpleBalloon.svg';
+import BrownBalloon from '../../../assets/images/brownBalloon.svg';
+
 import RedBalloon from '../../../assets/images/redBalloon.svg';
 import { move } from '../../../utils/dropMovement';
 import { normalBalloonProperties } from '../objects/properties/normal.balloon';
@@ -33,7 +37,7 @@ class GameScene extends Phaser.Scene {
     this.score = 0; 
     this.place = 1; 
     this.lastSpawnTime = 0;
-    this.spawnInterval = 9000;
+    this.spawnInterval = 5000;
     this.balloons = [];
 
     this.scoreMultiplier = 1;
@@ -53,6 +57,13 @@ class GameScene extends Phaser.Scene {
     this.load.image('big_balloon', BigBalloon);
     this.load.image('golden_balloon', GoldenBalloon);
     this.load.image('red_balloon', RedBalloon);
+    this.load.image('purple_balloon', PurpleBalloon);
+    this.load.image('blue_balloon', BlueBalloon);
+    this.load.image('brown_balloon', BrownBalloon);
+
+    // this.load.image('red_balloon', RedBalloon);
+
+    // golden
     this.load.spritesheet('explosion',Explosion , {
       frameWidth: 16,  
       frameHeight: 16,
@@ -76,27 +87,6 @@ class GameScene extends Phaser.Scene {
     });
 
 
-    // this.spawnBalloon();
-
-
-    // this.balloons = [
-      // new Balloon(this, canvasWidth / 2, canvasHeight, normalBalloonProperties), // Green balloon with speed 2
-      // new Balloon(this, canvasWidth / 2, canvasHeight, bigBalloonProperties), // Green balloon with speed 2
-      // new Balloon(this,  canvasWidth / 2, canvasHeight, smallBalloonProperties),
-      // new Balloon(this,  canvasWidth / 2, canvasHeight, bombBalloonProperties),
-      // new Balloon(this,  canvasWidth / 2, canvasHeight, colorChangingBalloonProperties),
-      // new Balloon(this,  canvasWidth / 2, canvasHeight, inflatingBalloonProperties),
-      // // new Balloon(this,  canvasWidth / 2, canvasHeight, deflatingBalloonProperties),
-      // new Balloon(this,  canvasWidth / 2, canvasHeight, goldenBalloonProperties),
-    // ];
-
-  
-    // this.ice_cubes = [
-    //   this.add.image(Phaser.Math.Between(0, canvasWidth), Phaser.Math.Between(0, canvasHeight), 'skull_icecube').setInteractive(),
-    //   this.add.image(Phaser.Math.Between(0, canvasWidth), Phaser.Math.Between(0, canvasHeight), 'coca_icecube').setInteractive(),
-    //   this.add.image(Phaser.Math.Between(0, canvasWidth), Phaser.Math.Between(0, canvasHeight), 'bonus_icecube').setInteractive()
-    // ];
-
  
     this.scoreLabel = new Label(this, canvasWidth / 4, 30, `Score: ${this.score}`, {
       background: { backgroundColor: '#fffff', width: 100 }
@@ -105,24 +95,13 @@ class GameScene extends Phaser.Scene {
     this.placeLabel = new Label(this, (3 * canvasWidth) / 4, 30, `Place: ${this.place}st`, {
       background: { backgroundColor: '#fffff', width: 100 }
     }, 'trophy_icon');
-  
-    // this.poppedCountText = this.add.text(10, 50, 'Popped: 0', { fontSize: '24px', fill: '#fff' });
 
-    // this.poppedBalloonCountLabel = new Label(this, canvasWidth / 5, 70, `Count: ${this.poppedBalloonCounter}`, {
-    //   background: { backgroundColor: '#fffff', width: 100 }
-    // }, 'cork_icon');
 
   }
 
 
   update(time) {
- 
-  //   this.balloons.forEach(balloon => balloon.move(this)
-  //   if(balloon.y < -balloon.height) {
-  //     balloon.destroy();
-  //     this.balloons.splice(index, 1);
-  //   }
-  // });
+
 
   this.balloons = this.balloons.filter(balloon => {
     // this.balloons.forEach((balloon, index) => {
@@ -138,33 +117,7 @@ class GameScene extends Phaser.Scene {
     this.spawnBalloon();
     this.lastSpawnTime = time;
   }
-  
-    // this.ice_cubes.forEach(ice_cube => {
-    //   ice_cube.displayHeight = 70;
-    //   ice_cube.displayWidth = 70;
-    //   ice_cube.y += 1;
-    //   if (ice_cube.y > this.sys.canvas.height) {
-    //     ice_cube.y = 0;
-    //     ice_cube.x = Phaser.Math.Between(0, this.sys.canvas.width);
-    //   }
-    // });
-
     
-    // this.scoreLabel.setText(`Score: ${this.score}`);
-
-    
-
-
-    // this.score = 200; 
-    // this.scoreLabel.setText(` ${this.score}`);
-
-    // if (this.score > 500) {
-    //   this.place = 2;
-    // }
-    // if (this.score > 1000) {
-    //   this.place = 3;
-    // }
-    // this.placeLabel.setText(` ${this.place}${this.getPlaceSuffix(this.place)}`);
   }
 
   onBalloonPopped(points) {
@@ -197,27 +150,118 @@ class GameScene extends Phaser.Scene {
 
     let balloonType;
 
-    if(this.score < 2){
+    if(this.score <= 2){
+      balloonType = inflatingBalloonProperties;
+      console.log(balloonType.speed, balloonType.alias);
+    }else if(this.score <= 4){   // level 2
+      balloonType = Phaser.Math.RND.pick([bombBalloonProperties, inflatingBalloonProperties]);
+      balloonType = {
+        ...balloonType,
+        speed: 1.3,
+        score: 2
+      };
+      console.log(balloonType.speed, balloonType.score);
+    }else if (this.score <= 6){  //level 3
+      balloonType = Phaser.Math.RND.pick([normalBalloonProperties, smallBalloonProperties]);
+      balloonType = {
+        ...balloonType,
+        speed: 1.6,
+        score: 3
+      };
+      console.log(balloonType.speed, balloonType.score);
+    }else if(this.score <= 8){  //level 4
+      balloonType = Phaser.Math.RND.pick([bigBalloonProperties, smallBalloonProperties]);
+      balloonType = {
+        ...balloonType,
+        speed: 1.9,
+        score: 4
+      };
+      console.log(balloonType.speed, balloonType.score);
+    }else if(this.score <= 10){   //level 5
+      balloonType = Phaser.Math.RND.pick([bigBalloonProperties, smallBalloonProperties]);
+      balloonType = {
+        ...balloonType,
+        speed: 2.1,
+        score: 5
+      };
+      if(balloonType.alias === 'golden_balloon'){
+        balloonType = {
+          ...balloonType,
+          score: 10
+        }
+      };
+      console.log(balloonType.speed, balloonType.score);
+    }else if(this.score <= 12){     //level 6
+      balloonType = Phaser.Math.RND.pick([bigBalloonProperties, smallBalloonProperties]);
+      balloonType = {
+        ...balloonType,
+        speed: 2.3,
+        score: 6
+      };
+
+      if(balloonType.alias === 'golden_balloon'){
+        balloonType = {
+          ...balloonType,
+          score: 10
+        }
+      };
+
+      console.log(balloonType.speed, balloonType.score);
+    }else if(this.score <= 14){   //level 7
+      balloonType = Phaser.Math.RND.pick([normalBalloonProperties, smallBalloonProperties]);
+      balloonType = {
+        ...balloonType,
+        speed: 2.6,
+        score: 7
+      };
+
+      if(balloonType.alias === 'golden_balloon'){
+        balloonType = {
+          ...balloonType,
+          score: 10
+        }
+      };
+
+      console.log(balloonType.speed, balloonType.score);
+    }else if(this.score <= 16){
+      balloonType = Phaser.Math.RND.pick([normalBalloonProperties, smallBalloonProperties]);
+      balloonType = {
+        ...balloonType,
+        speed: 2.8,
+        score: 8
+      };
+
+      if(balloonType.alias === 'golden_balloon'){
+        balloonType = {
+          ...balloonType,
+          score: 10
+        }
+      };
+
+      console.log(balloonType.speed, balloonType.score);
+    }
+    else {
       balloonType = normalBalloonProperties;
-    }else {
-      balloonType = smallBalloonProperties;
+      balloonType = {
+        ...balloonType,
+        speed: 3,
+        score: 9
+      };
+
+      if(balloonType.alias === 'golden_balloon'){
+        balloonType = {
+          ...balloonType,
+          score: 10
+        }
+      };
+
+      console.log(balloonType.speed, balloonType.score);
     }
 
 
     const newBalloon = new Balloon(this, x, canvasHeight, balloonType);
     this.balloons.push(newBalloon);
   }
-
-  
-
-
-//   incrementPoppedCount() {
-//     this.poppedBalloonCounter++;
-//     this.poppedBalloonCountLabel.setText(`Popped: ${this.poppedBalloonCounter}`);
-
-//     // this.poppedBalloonCountLabel.setText(`Count: ${this.poppedBalloonCount}`);
-
-// }
 }
 
 export default GameScene;
