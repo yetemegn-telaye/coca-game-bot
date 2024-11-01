@@ -37,7 +37,7 @@ class GameScene extends Phaser.Scene {
     this.score = 0; 
     this.place = 1; 
     this.lastSpawnTime = 0;
-    this.spawnInterval = 5000;
+    this.spawnInterval = 8000;
     this.balloons = [];
 
      
@@ -89,12 +89,12 @@ class GameScene extends Phaser.Scene {
 
 
  
-    this.scoreLabel = new Label(this, canvasWidth / 4, 30, `Score: ${this.score}`, {
-      background: { backgroundColor: '#fffff', width: 100 }
+    this.scoreLabel = new Label(this, canvasWidth / 4, 30, `Score:${this.score}`, {
+      background: { backgroundColor: '#fffff', width: 120 }
     }, 'cork_icon');
 
-    this.placeLabel = new Label(this, (3 * canvasWidth) / 4, 30, `Place: ${this.place}st`, {
-      background: { backgroundColor: '#fffff', width: 100 }
+    this.placeLabel = new Label(this, (3 * canvasWidth) / 4, 30, `Place:${this.place}st`, {
+      background: { backgroundColor: '#fffff', width: 120 }
     }, 'trophy_icon');
 
 

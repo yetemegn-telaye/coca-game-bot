@@ -10,7 +10,7 @@ class Label extends Phaser.GameObjects.Container {
       color: '#020202',
       fontFamily: 'inter',
       fontStyle: 'bold',
-      padding: { x: 0, y: 5 },
+      padding: { x: 0, y: 3 },
       align: 'center'
     };
 
