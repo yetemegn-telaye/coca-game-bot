@@ -142,6 +142,24 @@ class GameScene extends Phaser.Scene {
   }
 
 
+
+  getWeightedRandomBalloonType(balloonTypesWithWeights) {
+    // balloonTypesWithWeights ==  an array of objects, where each object contains a balloonType and its associated weight
+    // balloonTypesWithWeights = [{balloonType, weight: 1}, { balloonType, weight: 2 }]
+    // reduce() -- iterates through each object and adds up all the weight values
+    // produce a random integer between 0 and totalWeight - 1
+    const totalWeight = balloonTypesWithWeights.reduce((sum, { weight }) => sum + weight, 0);
+    let random = Phaser.Math.Between(0, totalWeight - 1);
+
+    for (const { balloonType, weight } of balloonTypesWithWeights) {
+        if (random < weight) {
+            return balloonType;
+        }
+        random -= weight;
+    }
+  }
+
+
   spawnBalloon() {
     
     const canvasWidth = this.sys.canvas.width;
@@ -152,18 +170,42 @@ class GameScene extends Phaser.Scene {
     let balloonType;
 
     if(this.score <= 2){
-      balloonType = bombBalloonProperties;
-      console.log(balloonType.speed, balloonType.alias);
+      const balloonTypesWithWeights = [
+        { balloonType: normalBalloonProperties, weight: 100 },
+      ];
+
+      balloonType = this.getWeightedRandomBalloonType(balloonTypesWithWeights);
+
+      console.log(balloonType.alias);
     }else if(this.score <= 4){   // level 2
-      balloonType = Phaser.Math.RND.pick([bombBalloonProperties, inflatingBalloonProperties]);
+      const balloonTypesWithWeights = [
+        { balloonType: normalBalloonProperties, weight: 90 },
+        { balloonType: bombBalloonProperties, weight: 10 }
+      ];
+
+      balloonType = this.getWeightedRandomBalloonType(balloonTypesWithWeights);
+
       balloonType = {
         ...balloonType,
         speed: 1.3,
         score: 2
       };
-      console.log(balloonType.speed, balloonType.score);
+      console.log(balloonType.alias);
     }else if (this.score <= 6){  //level 3
-      balloonType = Phaser.Math.RND.pick([normalBalloonProperties, smallBalloonProperties]);
+
+      const balloonTypesWithWeights = [
+        { balloonType: normalBalloonProperties, weight: 80 },
+        { balloonType: bigBalloonProperties, weight: 10 },
+        { balloonType: bombBalloonProperties, weight: 10 }
+
+      ];
+
+      balloonType = this.getWeightedRandomBalloonType(balloonTypesWithWeights);
+
+
+      // balloonType = Phaser.Math.RND.pick([normalBalloonProperties, smallBalloonProperties]);
+      
+
       balloonType = {
         ...balloonType,
         speed: 1.6,
@@ -171,15 +213,36 @@ class GameScene extends Phaser.Scene {
       };
       console.log(balloonType.speed, balloonType.score);
     }else if(this.score <= 8){  //level 4
-      balloonType = Phaser.Math.RND.pick([bigBalloonProperties, smallBalloonProperties]);
+      const balloonTypesWithWeights = [
+        { balloonType: normalBalloonProperties, weight: 70 },
+        { balloonType: bigBalloonProperties, weight: 10 },
+        { balloonType: bombBalloonProperties, weight: 10 },
+        { balloonType: smallBalloonProperties, weight: 10 }
+
+
+      ];
+
+      balloonType = this.getWeightedRandomBalloonType(balloonTypesWithWeights);
+
       balloonType = {
         ...balloonType,
         speed: 1.9,
         score: 4
       };
+
       console.log(balloonType.speed, balloonType.score);
     }else if(this.score <= 10){   //level 5
-      balloonType = Phaser.Math.RND.pick([bigBalloonProperties, smallBalloonProperties]);
+      const balloonTypesWithWeights = [
+        { balloonType: normalBalloonProperties, weight: 60 },
+        { balloonType: bigBalloonProperties, weight: 10 },
+        { balloonType: bombBalloonProperties, weight: 10 },
+        { balloonType: smallBalloonProperties, weight: 10 },
+        { balloonType: goldenBalloonProperties, weight: 10 }
+
+      ];
+
+      balloonType = this.getWeightedRandomBalloonType(balloonTypesWithWeights);
+
       balloonType = {
         ...balloonType,
         speed: 2.1,
@@ -193,7 +256,16 @@ class GameScene extends Phaser.Scene {
       };
       console.log(balloonType.speed, balloonType.score);
     }else if(this.score <= 12){     //level 6
-      balloonType = Phaser.Math.RND.pick([bigBalloonProperties, smallBalloonProperties]);
+      const balloonTypesWithWeights = [
+        { balloonType: normalBalloonProperties, weight: 50 },
+        { balloonType: bigBalloonProperties, weight: 20 },
+        { balloonType: bombBalloonProperties, weight: 10 },
+        { balloonType: smallBalloonProperties, weight: 10 },
+        { balloonType: goldenBalloonProperties, weight: 10 }
+      ];
+
+      balloonType = this.getWeightedRandomBalloonType(balloonTypesWithWeights);
+
       balloonType = {
         ...balloonType,
         speed: 2.3,
@@ -209,7 +281,17 @@ class GameScene extends Phaser.Scene {
 
       console.log(balloonType.speed, balloonType.score);
     }else if(this.score <= 14){   //level 7
-      balloonType = Phaser.Math.RND.pick([normalBalloonProperties, smallBalloonProperties]);
+      const balloonTypesWithWeights = [
+        { balloonType: normalBalloonProperties, weight: 40 },
+        { balloonType: bigBalloonProperties, weight: 20 },
+        { balloonType: bombBalloonProperties, weight: 20 },
+        { balloonType: smallBalloonProperties, weight: 10 },
+        { balloonType: goldenBalloonProperties, weight: 10 }
+
+      ];
+
+      balloonType = this.getWeightedRandomBalloonType(balloonTypesWithWeights);
+
       balloonType = {
         ...balloonType,
         speed: 2.6,
@@ -225,7 +307,18 @@ class GameScene extends Phaser.Scene {
 
       console.log(balloonType.speed, balloonType.score);
     }else if(this.score <= 16){
-      balloonType = Phaser.Math.RND.pick([normalBalloonProperties, smallBalloonProperties]);
+
+      const balloonTypesWithWeights = [
+        { balloonType: normalBalloonProperties, weight: 40 },
+        { balloonType: bigBalloonProperties, weight: 20 },
+        { balloonType: bombBalloonProperties, weight: 20 },
+        { balloonType: smallBalloonProperties, weight: 10 },
+        { balloonType: goldenBalloonProperties, weight: 10 }
+
+      ];
+
+      balloonType = this.getWeightedRandomBalloonType(balloonTypesWithWeights);
+
       balloonType = {
         ...balloonType,
         speed: 2.8,
@@ -242,7 +335,17 @@ class GameScene extends Phaser.Scene {
       console.log(balloonType.speed, balloonType.score);
     }
     else {
-      balloonType = normalBalloonProperties;
+        const balloonTypesWithWeights = [
+        { balloonType: normalBalloonProperties, weight: 40 },
+        { balloonType: bigBalloonProperties, weight: 10 },
+        { balloonType: bombBalloonProperties, weight: 20 },
+        { balloonType: smallBalloonProperties, weight: 10 },
+        { balloonType: goldenBalloonProperties, weight: 20 }
+
+      ];
+
+      balloonType = this.getWeightedRandomBalloonType(balloonTypesWithWeights);
+
       balloonType = {
         ...balloonType,
         speed: 3,
