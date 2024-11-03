@@ -171,12 +171,13 @@ class GameScene extends Phaser.Scene {
 
     if(this.score <= 2){
       const balloonTypesWithWeights = [
-        { balloonType: normalBalloonProperties, weight: 100 },
+        { balloonType: inflatingBalloonProperties, weight: 50 },
+        { balloonType: deflatingBalloonProperties, weight: 50 },
+
       ];
 
       balloonType = this.getWeightedRandomBalloonType(balloonTypesWithWeights);
-
-      console.log(balloonType.alias);
+      console.log(balloonType.alias, balloonType.size);
     }else if(this.score <= 4){   // level 2
       const balloonTypesWithWeights = [
         { balloonType: normalBalloonProperties, weight: 90 },
@@ -248,12 +249,7 @@ class GameScene extends Phaser.Scene {
         speed: 2.1,
         score: 5
       };
-      if(balloonType.alias === 'golden_balloon'){
-        balloonType = {
-          ...balloonType,
-          score: 10
-        }
-      };
+
       console.log(balloonType.speed, balloonType.score);
     }else if(this.score <= 12){     //level 6
       const balloonTypesWithWeights = [
@@ -272,12 +268,6 @@ class GameScene extends Phaser.Scene {
         score: 6
       };
 
-      if(balloonType.alias === 'golden_balloon'){
-        balloonType = {
-          ...balloonType,
-          score: 10
-        }
-      };
 
       console.log(balloonType.speed, balloonType.score);
     }else if(this.score <= 14){   //level 7
@@ -298,12 +288,6 @@ class GameScene extends Phaser.Scene {
         score: 7
       };
 
-      if(balloonType.alias === 'golden_balloon'){
-        balloonType = {
-          ...balloonType,
-          score: 10
-        }
-      };
 
       console.log(balloonType.speed, balloonType.score);
     }else if(this.score <= 16){
@@ -325,12 +309,6 @@ class GameScene extends Phaser.Scene {
         score: 8
       };
 
-      if(balloonType.alias === 'golden_balloon'){
-        balloonType = {
-          ...balloonType,
-          score: 10
-        }
-      };
 
       console.log(balloonType.speed, balloonType.score);
     }
@@ -352,12 +330,6 @@ class GameScene extends Phaser.Scene {
         score: 9
       };
 
-      if(balloonType.alias === 'golden_balloon'){
-        balloonType = {
-          ...balloonType,
-          score: 10
-        }
-      };
 
       console.log(balloonType.speed, balloonType.score);
     }
@@ -371,10 +343,7 @@ class GameScene extends Phaser.Scene {
 
   // console.log(this.spawnBalloons());
 
-  getBalloons(){
-    console.log(this.balloons);
-    return this.balloons;
-  }
+
 }
 
 export default GameScene;

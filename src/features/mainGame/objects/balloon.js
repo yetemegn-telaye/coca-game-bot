@@ -14,6 +14,11 @@ class Balloon extends Phaser.GameObjects.Image {
     this.alias = properties.alias;
     this.scene = scene;
     this.size = properties.size;
+    this.maxSize = properties.maxSize;
+    this.inflationAmount = properties.inflationAmount;
+    this.minSize = properties.minSize;
+    this.deflationAmount = properties.deflationAmount;
+
 
     this.speed = properties.speed;
     this.health = properties.health;
@@ -47,7 +52,11 @@ class Balloon extends Phaser.GameObjects.Image {
     this.setInteractive();
 
     this.on('pointerdown', () => properties.click(this));
+    this.on('pointerdown', () => this.inflate(this));
+    this.on('pointerdown', () => this.deflate(this));
+
     this.on('destroy', () => this.y < this.scene.sys.canvas.height ?  properties.onPop(this): console.log("Dropped"));
+
     console.log(this.properties.alias);
     // console.log(this.size);
 
@@ -70,23 +79,28 @@ class Balloon extends Phaser.GameObjects.Image {
       explosion.destroy();
       // this.resetBalloon(); 
     });
-
-    // this.scene.tweens.add({
-    //   targets: this,
-    //   scaleX: 0,
-
-    //   scaleY: 0,
-    //   alpha: 0,  // Fades out the balloon
-    //   duration: 500,
-    //   ease: 'Back.easeIn',  // You can also try other easing functions like 'Cubic.easeOut'
-    //     onComplete: () => {
-    //       console.log('Tween animation completed'); 
-    //       console.log('After tween:', this.scaleX, this.scaleY, this.alpha); // Log properties after completion
-
-    //     }
-    // });
   }
+
+
+    inflate(){
+      if (this.size < this.maxSize) {
+          this.size += this.inflationAmount; 
+          console.log('inflated size: ', this.size);
+          this.setScale(this.size / this.width, this.size / this.height);
+      }
+    }
+
+
+    deflate(){
+      if (this.size > this.minSize) {
+          this.size -= this.deflationAmount; 
+          console.log('deflated size: ', this.size);
+          this.setScale(this.size / this.width, this.size / this.height);
+      }
+    }
+
 }
+
 
 
 export default Balloon;

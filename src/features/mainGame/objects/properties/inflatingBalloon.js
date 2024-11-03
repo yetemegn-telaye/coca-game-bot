@@ -16,43 +16,16 @@ export const inflatingBalloonProperties = {
       ease: 'Back.easeIn',
     },
 
-    inflationRate: 0,
-    glow: true,
-    particleTrail: true,
-    popParticles: 'confetti',
     inflationAmount: 10,
     maxSize: 100,
 
-
-    inflate: function() {
-
-        console.log('inflation');
-        if (this.size < this.maxSize) {
-            this.size += this.inflationAmount; // Increase size
-            console.log(this.size);
-        }
-
-        const scaleFactor = this.size / 35; // Assuming 35 is the original size
-        this.setScale(scaleFactor);
-        
-    },
-
-
-
     click: (balloon) => {
-      
-
-    balloon.properties.inflate();
-    console.log(balloon.size);
-
 
     balloon.health -= 1;
 
     if(balloon.health <= 0){
         balloon.destroy();
     }
-
-    
     },
 
 

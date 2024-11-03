@@ -8,7 +8,7 @@ export const goldenBalloonProperties = {
       return colors[Math.floor(Math.random() * colors.length)] + '_balloon';
     },
     get score() {
-        return 1;
+        return 10;
     },
     animation: {
       duration: 400,
