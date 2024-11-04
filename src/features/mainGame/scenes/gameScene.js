@@ -24,8 +24,11 @@ import { colorChangingBalloonProperties } from '../objects/properties/colorChang
 import { inflatingBalloonProperties } from '../objects/properties/inflatingBalloon';
 import { deflatingBalloonProperties } from '../objects/properties/deflatingBalloon';
 import { goldenBalloonProperties } from '../objects/properties/goldenBalloon';
+import { bonusIceCubeProperties } from '../objects/properties/bonusIceCube';
 import PopSound from '../../../assets/sounds/pop-94319.mp3';
 import Explosion from '../../../assets/images/spritesheet/explosion.png';
+import { skullIceCubeProperties } from '../objects/properties/skullIceCube';
+import { cocaIceCubeProperties } from '../objects/properties/cocaIceCube';
 
 
 class GameScene extends Phaser.Scene {
@@ -88,6 +91,12 @@ class GameScene extends Phaser.Scene {
     });
 
 
+    // this.ice_cubes = [
+    //   this.add.image(Phaser.Math.Between(0, canvasWidth), Phaser.Math.Between(0, canvasHeight), 'skull_icecube').setInteractive(),
+    //   this.add.image(Phaser.Math.Between(0, canvasWidth), Phaser.Math.Between(0, canvasHeight), 'coca_icecube').setInteractive(),
+    //   this.add.image(Phaser.Math.Between(0, canvasWidth), Phaser.Math.Between(0, canvasHeight), 'bonus_icecube').setInteractive()
+    // ];
+
  
     this.scoreLabel = new Label(this, canvasWidth / 4, 30, `Score:${this.score}`, {
       background: { backgroundColor: '#fffff', width: 120 }
@@ -119,6 +128,18 @@ class GameScene extends Phaser.Scene {
     this.lastSpawnTime = time;
   }
     
+
+  // this.ice_cubes.forEach(ice_cube => {
+  //   ice_cube.displayHeight = 80;
+  //   ice_cube.displayWidth = 80;
+  //   ice_cube.y += 1;
+  //   if (ice_cube.y > this.sys.canvas.height) {
+  //     ice_cube.y = 0;
+  //     ice_cube.x = Phaser.Math.Between(0, this.sys.canvas.width);
+  //   }
+  // });
+
+
   }
 
   onBalloonPopped(points) {
@@ -171,12 +192,17 @@ class GameScene extends Phaser.Scene {
 
     if(this.score <= 2){
       const balloonTypesWithWeights = [
-        { balloonType: inflatingBalloonProperties, weight: 50 },
-        { balloonType: deflatingBalloonProperties, weight: 50 },
-
+        { balloonType: cocaIceCubeProperties, weight: 100 },
+        // { balloonType: skullIceCubeProperties, weight: 50 },
+        // { balloonType: bonusIceCubeProperties, weight: 50 },
       ];
 
       balloonType = this.getWeightedRandomBalloonType(balloonTypesWithWeights);
+      if(balloonType.alias === 'bonus_ice_cube'){
+        this.scoreMultiplier = 3;
+      }
+
+
       console.log(balloonType.alias, balloonType.size);
     }else if(this.score <= 4){   // level 2
       const balloonTypesWithWeights = [
