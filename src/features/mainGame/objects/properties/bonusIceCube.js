@@ -8,6 +8,8 @@ export const bonusIceCubeProperties = {
     //   return colors[Math.floor(Math.random() * colors.length)] + '_balloon';
     // },
     color: 'bonus_icecube',
+
+    type: 'bonus',
     get score() {
         return 0;
     },
@@ -23,17 +25,19 @@ export const bonusIceCubeProperties = {
 
       if(balloon.health <= 0){
         balloon.destroy();
+
       }
 
     },
     onPop: (balloon) => {
+    alert("popped");
+
+
 
       if (!balloon.scene) {
         console.error('balloon.scene is undefined');
         return; 
       }
-
-    
 
       // console.log('isScoreTripled', balloon.scene.scoreMultiplierOn);
       console.log('scoreMultiplier', balloon.scene.scoreMultiplier);
@@ -44,17 +48,16 @@ export const bonusIceCubeProperties = {
       // console.log('scoreMultiplierOn', balloon.scene.scoreMultiplierOn);
       console.log('scoreMultiplier', balloon.scene.scoreMultiplier);
 
-      setTimeout((balloon) => {
-        console.log("balloon", balloon);
-          balloon.scene.scoreMultiplier = 1; 
-          console.log('Multiplier reset');
-      }, 5000);
+
+
 
       // console.log('scoreMultiplierOn', balloon.scene.scoreMultiplierOn);
       console.log('scoreMultiplier', balloon.scene.scoreMultiplier);
 
       balloon.animate();
       balloon.scene.sound.play('pop');
+
+
 
 
 

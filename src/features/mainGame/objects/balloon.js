@@ -3,6 +3,7 @@ import { move, resetPosition } from '../../../utils/dropMovement';
 import balloon from "./balloon";
 
 class Balloon extends Phaser.GameObjects.Image {
+
   constructor(scene, x, y, properties) {
 
     super(scene, x, y, properties.color);
@@ -13,18 +14,21 @@ class Balloon extends Phaser.GameObjects.Image {
 
     this.alias = properties.alias;
     this.scene = scene;
+
     this.size = properties.size;
     this.maxSize = properties.maxSize;
     this.inflationAmount = properties.inflationAmount;
     this.minSize = properties.minSize;
+
     this.deflationAmount = properties.deflationAmount;
-
-
     this.speed = properties.speed;
     this.health = properties.health;
-    this.color = properties.color;
-    this.rotationSpeed = properties.rotationSpeed;
 
+    this.color = properties.color;
+
+    this.type = properties.type;
+
+    this.rotationSpeed = properties.rotationSpeed;
     this.score = properties.score;
     this.glow = properties.glow;
     this.particleTrail = properties.particleTrail;
@@ -32,8 +36,8 @@ class Balloon extends Phaser.GameObjects.Image {
 
     this.rightColorRewardMultiplier = properties.rightColorRewardMultiplier;
     this.wrongColorRewardMultiplier = properties.wrongColorRewardMultiplier;
-
     this.color_change_rate = properties.color_change_rate;
+
     this.texture = properties.texture;
   
 
@@ -59,10 +63,7 @@ class Balloon extends Phaser.GameObjects.Image {
 
     console.log(this.properties.alias);
     // console.log(this.size);
-
-    
   // console.log(scene.sys.canvas.height)
-
   }
 
   animate() {

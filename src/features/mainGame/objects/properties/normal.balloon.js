@@ -3,6 +3,9 @@ export const normalBalloonProperties = {
     size: 55,
     speed: 1,
     health: 1,
+
+    type: 'balloon',
+
     get color(){
 
       let colors = ['red','green', 'golden']
@@ -32,6 +35,7 @@ export const normalBalloonProperties = {
 
     },
     onPop: (balloon) => {
+
 
         balloon.animate();
         balloon.scene.sound.play('pop');
