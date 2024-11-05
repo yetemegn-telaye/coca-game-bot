@@ -22,14 +22,17 @@ import { normalBalloonProperties, bigBalloonProperties, smallBalloonProperties, 
 import PopSound from '../../../assets/sounds/pop-94319.mp3';
 import BgMusic from '../../../assets/sounds/harar-beer-ballon-game-background-music.mp3';
 import Explosion from '../../../assets/images/spritesheet/explosion.png';
+import BoomSound from '../../../assets/sounds/explosion-91872.mp3';
 
+import ShoutYeah from '../../../assets/sounds/shouting-yeah-7043.mp3';
+import OhOhSound from '../../../assets/sounds/uh-oh-101117.mp3';
 class GameScene extends Phaser.Scene {
   constructor(config) {
     super(config);
     this.score = 0;
     this.place = 1;
     this.lastSpawnTime = 0;
-    this.spawnInterval = 5000;
+    this.spawnInterval = 2000;
     this.balloons = [];
     this.scoreMultiplier = 1;
     this.scoreMultiplierOn = false;
@@ -54,16 +57,119 @@ class GameScene extends Phaser.Scene {
     this.load.image('blue_balloon', BlueBalloon);
     this.load.image('brown_balloon', BrownBalloon);
 
+    this.load.audio('boom',BoomSound)
+    this.load.audio('shoutYeah',ShoutYeah)
+    this.load.audio('uhOh',OhOhSound)
     this.load.spritesheet('explosion', Explosion, { frameWidth: 16, frameHeight: 16 });
 
   }
+
 
   create() {
     const canvasWidth = this.sys.canvas.width;
     const canvasHeight = this.sys.canvas.height;
 
-    //play background music
 
+
+    this.screenShake = (intensity = 0.01, duration = 200)=> {
+      this.cameras.main.shake(duration, intensity);
+    }
+
+
+    this.showBonusFloatingText = (points, x, y)=> {
+      const bonusText = this.add.text(x, y, `+${points}`, {
+        fontSize: '20px',
+        color: '#FFD700', // Yellow color for bonus
+        fontStyle: 'bold'
+      }).setOrigin(0.5).setScale(0);
+
+      // Animation sequence for the bonus text
+      this.tweens.add({
+        targets: bonusText,
+        scale: 2,           // Pop-up effect
+        duration: 700,
+        ease: 'Back.easeOut',
+        onComplete: () => {
+          // After pop, float up and fade out
+          this.tweens.add({
+            targets: bonusText,
+            y: y - 50,        // Float up
+            alpha: 0,         // Fade out
+            duration: 800,
+            scale:1,
+            ease: 'Power1',
+            onComplete: () => bonusText.destroy() // Remove text after animation
+          });
+        }
+      });
+    }
+
+
+    this.showLevelUpEffect = (text = "BONUS",color = "FFD700") => {
+      const canvasWidth = this.sys.canvas.width;
+      const canvasHeight = this.sys.canvas.height;
+
+      const levelUpText = this.add.text(canvasWidth / 2, canvasHeight / 2, text, {
+        fontSize: '60px',
+        color: color,
+        fontStyle: 'bold',
+        fontFamily: 'Arial',
+        stroke: '#000000',
+        strokeThickness: 8,
+      }).setOrigin(0.5)
+          .setScale(0)
+          .setRotation(Phaser.Math.DegToRad(-30)); // Start at 30 degrees
+
+      // Create a pulsating glow effect with scaling and rotation
+      this.tweens.add({
+        targets: levelUpText,
+        scale: 1,
+        rotation: Phaser.Math.DegToRad(-45), // Rotate to 45 degrees
+        duration: 500,
+        yoyo: true,
+        ease: 'Bounce.easeOut',
+        onComplete: () => {
+          this.tweens.add({
+            targets: levelUpText,
+            alpha: 0, // Fade out
+            duration: 800,
+            ease: 'Power1',
+            onComplete: () => levelUpText.destroy() // Remove text after fade
+          });
+        }
+      });
+
+      // Optional: Add particles or confetti for extra flair
+      // Create the particle manager with a texture key
+      const particles = this.add.particles('spark');
+
+
+      // Stop the particles after a short time
+      this.time.delayedCall(500, () => {
+        particles.destroy();
+      });
+    }
+    this.showFloatingScore = (points, x, y)=> {
+
+      const floatingText = this.add.text(x, y, `+${points}`, {
+        fontSize: '20px',
+
+        color: '#eee',
+        fontStyle: 'bold'
+      }).setOrigin(0.5);
+
+      // Animate the floating text to move up and fade out
+
+
+      this.tweens.add({
+        targets: floatingText,
+        y: y - 50, // Move up by 50 pixels
+        alpha: 0,  // Fade out
+        duration: 7000,
+        ease: 'Cubic.easeOut',
+        onComplete: () => floatingText.destroy() // Destroy text after animation
+      });
+    }
 
     this.background = this.add.image(canvasWidth / 2, canvasHeight / 2, 'background').setDisplaySize(canvasWidth, canvasHeight);
 
@@ -87,6 +193,11 @@ class GameScene extends Phaser.Scene {
     if (!this.musicPlaying) {
       this.musicPlaying = true;
       this.sound.play('bgMusic', { loop: true });
+    }
+
+
+    if(this.scoreMultiplierOn){
+      this.scoreLabel.setBorderColor('#FFD700');
     }
 
 
@@ -127,11 +238,11 @@ class GameScene extends Phaser.Scene {
     const x = Phaser.Math.Between(2, canvasWidth-2);
 
     const levels = [
-      { maxScore: 2, types: [] },
-      { maxScore: 7, types: [{balloonType: bonusIceCubeProperties,weight: 50}] },
+      { maxScore: 1, types: [] },
+      { maxScore: 7, types: [{balloonType: bonusIceCubeProperties,weight: 90}] },
 
 
-      { maxScore: Infinity, types: [{balloonType: skullIceCubeProperties,weight: 50}] },
+      { maxScore: Infinity, types: [{balloonType: bonusIceCubeProperties,weight: 5},{balloonType: skullIceCubeProperties,weight: 50}] },
 
     ];
 
@@ -140,11 +251,16 @@ class GameScene extends Phaser.Scene {
 
 
 
+
+
+
+
+
+
+
+
     levels.map(level=>{
-
       const totalWeight = level.types.reduce((sum, { weight }) => sum + weight, 0);
-
-
        level.types.push({ balloonType: normalBalloonProperties, weight: 100 - totalWeight });
        return level;
     })

@@ -18,28 +18,18 @@ export const skullIceCubeProperties = {
 
 
     click: (balloon) => {
-      
-      balloon.health -= 1;
 
-      if(balloon.health <= 0){
         balloon.destroy();
-      }
 
     },
     onPop: (balloon) => {
 
         balloon.animate();
-        balloon.scene.sound.play('pop');
-
-        console.log('score', balloon.scene.score);
-        balloon.scene.score -= (balloon.properties.score * balloon.scene.scoreMultiplier);
-
-        if (balloon.scene.score < 0) {
-            balloon.scene.score = 0; 
-        }
-
-        console.log('scoreMultiplier', balloon.scene.scoreMultiplier);
-        console.log('score', balloon.scene.score);
+        // balloon.scene.sound.play('pop');
+        balloon.scene.sound.play('uhOh')
+        balloon.scene.showLevelUpEffect("ክሽም","#FF0000")
+        balloon.scene.score = 0
         balloon.scene.scoreLabel.setText(`Score: ${balloon.scene.score}`);
     }
+
 }

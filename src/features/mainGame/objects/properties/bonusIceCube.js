@@ -30,7 +30,7 @@ export const bonusIceCubeProperties = {
 
     },
     onPop: (balloon) => {
-    alert("popped");
+
 
 
 
@@ -46,16 +46,29 @@ export const bonusIceCubeProperties = {
 
 
        balloon.scene.scoreMultiplier = 3;
-
+       balloon.scene.scoreLabel.setImage('bonus_icecube');
+       balloon.scene.showLevelUpEffect('BONUS',"FFD700");
+       balloon.scene.sound.play('shoutYeah');
 
       balloon.animate();
       balloon.scene.sound.play('pop');
+      const scene = balloon.scene;
 
 
 
-      console.log('score', balloon.scene.score);
+        setTimeout(() => {
+            scene.scoreMultiplier = 1;
+            scene.scoreMultiplierOn = false;
+            scene.scoreLabel.setBorderColor('#000000');
+            scene.scoreLabel.setImage('cork_icon',0.5);
+            console.log('scoreMultiplier', scene.scoreMultiplier);
+        }, 20000);
+
+
+
+
+
       balloon.scene.score += (balloon.properties.score * balloon.scene.scoreMultiplier);
-
         console.log('scoreMultiplier', balloon.scene.scoreMultiplier);
         console.log('score', balloon.scene.score);
         balloon.scene.scoreLabel.setText(`Score: ${balloon.scene.score}`);

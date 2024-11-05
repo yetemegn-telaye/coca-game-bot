@@ -62,8 +62,8 @@ class Balloon extends Phaser.GameObjects.Image {
     this.on('destroy', () => this.y < this.scene.sys.canvas.height ?  properties.onPop(this): console.log("Dropped"));
 
     console.log(this.properties.alias);
-    // console.log(this.size);
-  // console.log(scene.sys.canvas.height)
+
+
   }
 
   animate() {

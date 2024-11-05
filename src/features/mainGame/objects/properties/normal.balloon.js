@@ -39,11 +39,17 @@ export const normalBalloonProperties = {
 
         balloon.animate();
         balloon.scene.sound.play('pop');
-
+        balloon.scene.screenShake(0.02,100);
+        balloon.scene.sound.play('boom');
 
         balloon.scene.score += (balloon.properties.score * balloon.scene.scoreMultiplier);
-        balloon.scene.scoreLabel.setText(`Score: ${balloon.scene.score}`);
 
+        balloon.scene.scoreLabel.setText(`Score: ${balloon.scene.score}`);
+        if(balloon.scene.scoreMultiplierOn){
+            balloon.scene.showBonusFloatingText(balloon.properties.score * balloon.scene.scoreMultiplier,balloon.x, balloon.y );
+        }else{
+            balloon.scene.showFloatingScore(balloon.properties.score * balloon.scene.scoreMultiplier,balloon.x, balloon.y);
+        }
 
     }
 }
