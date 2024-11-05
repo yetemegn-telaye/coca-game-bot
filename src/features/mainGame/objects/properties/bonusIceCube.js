@@ -9,7 +9,7 @@ export const bonusIceCubeProperties = {
     // },
     color: 'bonus_icecube',
     get score() {
-        return 1;
+        return 0;
     },
     // animation: {
     //   duration: 400,
@@ -44,7 +44,8 @@ export const bonusIceCubeProperties = {
       // console.log('scoreMultiplierOn', balloon.scene.scoreMultiplierOn);
       console.log('scoreMultiplier', balloon.scene.scoreMultiplier);
 
-      setTimeout(() => {
+      setTimeout((balloon) => {
+        console.log("balloon", balloon);
           balloon.scene.scoreMultiplier = 1; 
           console.log('Multiplier reset');
       }, 5000);
