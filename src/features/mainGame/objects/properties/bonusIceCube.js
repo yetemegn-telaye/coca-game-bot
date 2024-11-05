@@ -28,8 +28,34 @@ export const bonusIceCubeProperties = {
     },
     onPop: (balloon) => {
 
-        balloon.animate();
-        balloon.scene.sound.play('pop');
+      if (!balloon.scene) {
+        console.error('balloon.scene is undefined');
+        return; 
+      }
+
+    
+
+      // console.log('isScoreTripled', balloon.scene.scoreMultiplierOn);
+      console.log('scoreMultiplier', balloon.scene.scoreMultiplier);
+
+      // balloon.scene.scoreMultiplierOn = true; 
+      balloon.scene.scoreMultiplier = 3; 
+
+      // console.log('scoreMultiplierOn', balloon.scene.scoreMultiplierOn);
+      console.log('scoreMultiplier', balloon.scene.scoreMultiplier);
+
+      setTimeout(() => {
+          balloon.scene.scoreMultiplier = 1; 
+          console.log('Multiplier reset');
+      }, 5000);
+
+      // console.log('scoreMultiplierOn', balloon.scene.scoreMultiplierOn);
+      console.log('scoreMultiplier', balloon.scene.scoreMultiplier);
+
+      balloon.animate();
+      balloon.scene.sound.play('pop');
+
+
 
         console.log('score', balloon.scene.score);
         balloon.scene.score += (balloon.properties.score * balloon.scene.scoreMultiplier);
@@ -37,5 +63,6 @@ export const bonusIceCubeProperties = {
         console.log('scoreMultiplier', balloon.scene.scoreMultiplier);
         console.log('score', balloon.scene.score);
         balloon.scene.scoreLabel.setText(`Score: ${balloon.scene.score}`);
+
     }
 }

@@ -40,12 +40,12 @@ class GameScene extends Phaser.Scene {
     this.score = 0; 
     this.place = 1; 
     this.lastSpawnTime = 0;
-    this.spawnInterval = 8000;
+    this.spawnInterval = 5000;
     this.balloons = [];
 
      
     this.scoreMultiplier = 1;
-    this.poppedBalloonCounter = 0;
+    this.scoreMultiplierOn = false;
   }
 
   preload() {
@@ -192,16 +192,17 @@ class GameScene extends Phaser.Scene {
 
     if(this.score <= 2){
       const balloonTypesWithWeights = [
-        { balloonType: cocaIceCubeProperties, weight: 100 },
-        // { balloonType: skullIceCubeProperties, weight: 50 },
-        // { balloonType: bonusIceCubeProperties, weight: 50 },
+        // { balloonType: smallBalloonProperties, weight: 30 },
+        // { balloonType: normalBalloonProperties, weight: 30 },
+        { balloonType: bonusIceCubeProperties, weight: 50 },
+        { balloonType: normalBalloonProperties, weight: 50 },
+
       ];
 
       balloonType = this.getWeightedRandomBalloonType(balloonTypesWithWeights);
       if(balloonType.alias === 'bonus_ice_cube'){
         this.scoreMultiplier = 3;
       }
-
 
       console.log(balloonType.alias, balloonType.size);
     }else if(this.score <= 4){   // level 2

@@ -34,6 +34,10 @@ export const skullIceCubeProperties = {
         console.log('score', balloon.scene.score);
         balloon.scene.score -= (balloon.properties.score * balloon.scene.scoreMultiplier);
 
+        if (balloon.scene.score < 0) {
+            balloon.scene.score = 0; 
+        }
+
         console.log('scoreMultiplier', balloon.scene.scoreMultiplier);
         console.log('score', balloon.scene.score);
         balloon.scene.scoreLabel.setText(`Score: ${balloon.scene.score}`);
