@@ -40,8 +40,8 @@ export const normalBalloonProperties = {
         balloon.animate();
         balloon.scene.sound.play('pop');
 
-        balloon.scene.score += (balloon.properties.score * balloon.scene.scoreMultiplier);
 
+        balloon.scene.score += (balloon.properties.score * balloon.scene.scoreMultiplier);
         balloon.scene.scoreLabel.setText(`Score: ${balloon.scene.score}`);
 
 

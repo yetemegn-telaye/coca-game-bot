@@ -3,7 +3,8 @@ import Phaser from "phaser";
   export  const resetPosition = function() {
     const randomX = Phaser.Math.Between(0, this.scene.sys.canvas.width); // Get random X position within canvas width
     this.y = 0;
-    this.x = randomX; 
+
+    this.x = randomX;
   };
   
   export function move(scene) {

@@ -10,7 +10,7 @@ class Label extends Phaser.GameObjects.Container {
       color: '#020202',
       fontFamily: 'inter',
       fontStyle: 'bold',
-      padding: { x: 0, y: 3 },
+      padding: { x: 5, y: 3 },
       align: 'center'
     };
 
@@ -33,6 +33,7 @@ class Label extends Phaser.GameObjects.Container {
     background.fillStyle(
       Phaser.Display.Color.HexStringToColor(this.backgroundStyle.backgroundColor).setTo(255,255,255).color,
       1
+
     );
 
     background.fillRoundedRect(
@@ -47,8 +48,12 @@ class Label extends Phaser.GameObjects.Container {
     if (this.backgroundStyle.strokeColor && this.backgroundStyle.strokeWidth) {
       background.lineStyle(
         this.backgroundStyle.strokeWidth,
-        Phaser.Display.Color.HexStringToColor(this.backgroundStyle.strokeColor).color,
+        Phaser.Display.Color.HexStringToColor(scene.scoreMultiplierOn ?
+            '#FFD700' :
+            this.backgroundStyle.strokeColor
+        ).color,
         1
+
       );
       background.strokeRoundedRect(
         -this.backgroundStyle.width / 2, 
