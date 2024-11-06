@@ -15,6 +15,7 @@ import BlueBalloon from "../../../assets/images/blueBalloon.svg";
 import PurpleBalloon from "../../../assets/images/purpleBalloon.svg";
 import BrownBalloon from "../../../assets/images/brownBalloon.svg";
 import RedBalloon from "../../../assets/images/redBalloon.svg";
+import BlackBalloon from "../../../assets/images/bombbal.png";
 
 import { move } from "../../../utils/dropMovement";
 import {
@@ -68,6 +69,7 @@ class GameScene extends Phaser.Scene {
     this.load.image("red_balloon", RedBalloon);
     this.load.image("purple_balloon", PurpleBalloon);
     this.load.image("blue_balloon", BlueBalloon);
+    this.load.image("bomb_balloon", BlackBalloon);
     this.load.image("brown_balloon", BrownBalloon);
 
     this.load.audio("boom", BoomSound);
@@ -267,7 +269,7 @@ class GameScene extends Phaser.Scene {
     const levels = [
       { maxScore: 1, types: [] },
       {
-        maxScore: 50,
+        maxScore: 5,
         types: [{ balloonType: bonusIceCubeProperties, weight: 90 }],
       },
 

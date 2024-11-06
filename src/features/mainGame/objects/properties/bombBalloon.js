@@ -5,11 +5,7 @@ export const bombBalloonProperties = {
     size: 55,
     speed: 1,
     health: 1,
-    get color(){
-
-      let colors = ['red']
-      return colors[Math.floor(Math.random() * colors.length)] + '_balloon';
-    },
+    color: 'bomb_balloon',
     get score() {
         return 1;
     },
