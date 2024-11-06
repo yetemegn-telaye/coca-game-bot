@@ -49,7 +49,7 @@ export const bombBalloonProperties = {
         console.log('balloons in scene: ',  balloon.scene.balloons);
 
         // Filter out balloons that are not destroyed
-        const balloonsToDestroy = balloon.scene.balloons.filter(otherBalloon => !otherBalloon.destroyed);
+        const balloonsToDestroy = balloon.scene.balloons.filter(otherBalloon => !otherBalloon.destroyed || otherBalloon.type != 'death');
 
         balloonsToDestroy.forEach(otherBalloon => {
           otherBalloon.destroy(); // Call destroy on the balloon

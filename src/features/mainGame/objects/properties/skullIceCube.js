@@ -3,24 +3,13 @@ export const skullIceCubeProperties = {
     size: 55,
     speed: 1,
     health: 1,
-    // get color(){
-    //   let colors = ['golden']
-    //   return colors[Math.floor(Math.random() * colors.length)] + '_balloon';
-    // },
+ 
     color: 'skull_icecube',
-    get score() {
-        return 100;
-    },
-    // animation: {
-    //   duration: 400,
-    //   ease: 'Bounce',
-    // },
+    type: 'death',
 
 
     click: (balloon) => {
-
         balloon.destroy();
-
     },
     onPop: (balloon) => {
 

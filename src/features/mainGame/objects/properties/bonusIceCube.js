@@ -44,10 +44,10 @@ export const bonusIceCubeProperties = {
 
        balloon.scene.scoreMultiplierOn = true;
 
-
+       balloon.scene.bonusOnScreen = false;
        balloon.scene.scoreMultiplier = 3;
        balloon.scene.scoreLabel.setImage('bonus_icecube');
-       balloon.scene.showLevelUpEffect('BONUS',"FFD700");
+       balloon.scene.showLevelUpEffect('BONUS',"#FFD700");
        balloon.scene.sound.play('shoutYeah');
 
       balloon.animate();
