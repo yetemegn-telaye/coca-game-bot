@@ -43,9 +43,10 @@ class GameScene extends Phaser.Scene {
   constructor(config) {
     super(config);
     this.score = 0;
+
     this.place = 1;
     this.lastSpawnTime = 0;
-    this.spawnInterval = 4000;
+    this.spawnInterval = 1000;
     this.balloons = [];
     this.scoreMultiplier = 1;
     this.scoreMultiplierOn = false;
@@ -62,6 +63,7 @@ class GameScene extends Phaser.Scene {
     this.load.image("trophy_icon", TrophyIcon);
     this.load.image("skull_icecube", SkullIcecube);
     this.load.image("coca_icecube", CocaIcecube);
+
     this.load.image("bonus_icecube", BonusIcecube);
     this.load.image("green_balloon", GreenBalloon);
     this.load.image("big_balloon", BigBalloon);
@@ -278,7 +280,6 @@ class GameScene extends Phaser.Scene {
         types: [
           { balloonType: bonusIceCubeProperties, weight: 5 },
           { balloonType: skullIceCubeProperties, weight: 25 },
-          { balloonType: bombBalloonProperties, weight: 50 },
         ],
       },
     ];

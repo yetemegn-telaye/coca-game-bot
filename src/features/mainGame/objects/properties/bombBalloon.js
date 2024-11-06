@@ -36,31 +36,31 @@ export const bombBalloonProperties = {
 
       // Check if the balloon is already destroyed and exit if true
       if (balloon.destroyed) return;  
-
+        const scene = balloon.scene;
         balloon.animate();
         balloon.destroyed = true;
         balloon.scene.sound.play('pop');
 
 
-        console.log('balloons in scene: ',  balloon.scene.balloons);
+
 
         // Filter out balloons that are not destroyed
-        const balloonsToDestroy = balloon.scene.balloons.filter(otherBalloon => !otherBalloon.destroyed || otherBalloon.type != 'death');
+        const balloonsToDestroy =  scene.balloons.filter(otherBalloon => !otherBalloon.destroyed || otherBalloon.type != 'death');
 
         balloonsToDestroy.forEach(otherBalloon => {
           otherBalloon.destroy(); // Call destroy on the balloon
           otherBalloon.destroyed = true; // Mark it as destroyed
         });
 
-        balloon.scene.balloons = balloon.scene.balloons.filter(b => !b.destroyed);
+        scene.balloons = scene.balloons.filter(b => !b.destroyed);
 
           
-        balloon.scene.score += (balloon.properties.score * balloon.scene.scoreMultiplier);  //+ nearbyScore;
+        scene.score += (balloon.properties.score * scene.scoreMultiplier);  //+ nearbyScore;
 
 
-        balloon.scene.scoreLabel.setText(`Score: ${balloon.scene.score}`);
+        scene.scoreLabel.setText(`Score: ${scene.score}`);
 
-        console.log(balloon.scene.score);
+        console.log(scene.score);
     }
 
 
