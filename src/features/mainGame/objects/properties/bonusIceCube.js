@@ -1,6 +1,6 @@
 export const bonusIceCubeProperties = {
     alias: 'bonus_ice_cube',
-    size: 55,
+    size: 100,
     speed: 1,
     health: 1,
     // get color(){

@@ -235,7 +235,7 @@ class GameScene extends Phaser.Scene {
     }
 
     this.balloons = this.balloons.filter((balloon, index) => {
-      if (balloon.y == this.sys.canvas.height) {
+      if (balloon.y < 0) {
         balloon.destroy();
       }
 
@@ -269,7 +269,10 @@ class GameScene extends Phaser.Scene {
 
   spawnBalloon() {
     const canvasWidth = this.sys.canvas.width;
+    const canvasHeight = this.sys.canvas.height;
     const x = Phaser.Math.Between(20, canvasWidth - 20);
+    const y = canvasHeight;
+    
 
     const levels = [
       { maxScore: 1, types: [] },
@@ -309,7 +312,7 @@ class GameScene extends Phaser.Scene {
     while (balloonType.type == "bonus" && (this.scoreMultiplierOn)){
        balloonType = this.getWeightedRandomBalloonType(level.types);
     }
-    const newBalloon = new Balloon(this, x, 0, {
+    const newBalloon = new Balloon(this, x, y, {
       ...balloonType,
       speed: level.speed || 1,
       score: level.score || 1,
