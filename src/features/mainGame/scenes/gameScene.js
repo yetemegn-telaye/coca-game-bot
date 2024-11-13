@@ -1,5 +1,6 @@
 import Phaser from "phaser";
-import BackgroundImage from "../../../assets/coca-bg2.png";
+// import BackgroundImage from "../../../assets/coca-bg2.png";
+import BackgroundImage from "../../../assets/tilesetOpenGameBackground.png";
 import Balloon from "../objects/balloon";
 import Label from "../objects/gameLabel";
 
@@ -8,13 +9,13 @@ import TrophyIcon from "../../../assets/icons/Group.png";
 import SkullIcecube from "../../../assets/images/skullIcecube.png";
 import CocaIcecube from "../../../assets/images/bottleIcecube.png";
 import BonusIcecube from "../../../assets/images/coinIcecube.png";
-import GreenBalloon from "../../../assets/images/balloon.svg";
+import GreenBalloon from "../../../assets/images/balloons/balloongreen.png";
 import BigBalloon from "../../../assets/images/bigBalloon.svg";
-import GoldenBalloon from "../../../assets/images/goldenBalloon.svg";
-import BlueBalloon from "../../../assets/images/blueBalloon.svg";
+import GoldenBalloon from "../../../assets/images/balloons/balloongolden.png";
+import BlueBalloon from "../../../assets/images/balloons/balloonblue.png";
 import PurpleBalloon from "../../../assets/images/purpleBalloon.svg";
 import BrownBalloon from "../../../assets/images/brownBalloon.svg";
-import RedBalloon from "../../../assets/images/redBalloon.svg";
+import RedBalloon from "../../../assets/images/balloon_red2.png";
 import BlackBalloon from "../../../assets/images/bombbal.png";
 
 import { move } from "../../../utils/dropMovement";
@@ -35,6 +36,7 @@ import {
 import PopSound from "../../../assets/sounds/pop-94319.mp3";
 import BgMusic from "../../../assets/sounds/harar-beer-ballon-game-background-music.mp3";
 import Explosion from "../../../assets/images/spritesheet/explosion.png";
+// import Explosion from "../../../assets/images/spritesheet/balloon_redpack.png";
 import BoomSound from "../../../assets/sounds/explosion-91872.mp3";
 
 import ShoutYeah from "../../../assets/sounds/shouting-yeah-7043.mp3";
@@ -81,6 +83,7 @@ class GameScene extends Phaser.Scene {
       frameWidth: 16,
       frameHeight: 16,
     });
+  
   }
 
   create() {
