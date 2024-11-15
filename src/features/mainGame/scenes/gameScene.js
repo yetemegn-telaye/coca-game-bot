@@ -55,8 +55,10 @@ class GameScene extends Phaser.Scene {
     this.bonusOnScreen = false;
 
     this.musicPlaying = false;
+    this.gameOver = false;
   }
 
+ 
   preload() {
     this.load.image("background", BackgroundImage);
     this.load.audio("pop", PopSound);
@@ -98,28 +100,28 @@ class GameScene extends Phaser.Scene {
       const bonusText = this.add
         .text(x, y, `+${points}`, {
           fontSize: "20px",
-          color: "#FFD700", // Yellow color for bonus
+          color: "#FFD700",
           fontStyle: "bold",
         })
         .setOrigin(0.5)
         .setScale(0);
 
-      // Animation sequence for the bonus text
+     
       this.tweens.add({
         targets: bonusText,
-        scale: 2, // Pop-up effect
+        scale: 2,
         duration: 700,
         ease: "Back.easeOut",
         onComplete: () => {
-          // After pop, float up and fade out
+          
           this.tweens.add({
             targets: bonusText,
-            y: y - 50, // Float up
-            alpha: 0, // Fade out
+            y: y - 50, 
+            alpha: 0, 
             duration: 800,
             scale: 1,
             ease: "Power1",
-            onComplete: () => bonusText.destroy(), // Remove text after animation
+            onComplete: () => bonusText.destroy(),
           });
         },
       });
@@ -140,13 +142,13 @@ class GameScene extends Phaser.Scene {
         })
         .setOrigin(0.5)
         .setScale(0)
-        .setRotation(Phaser.Math.DegToRad(-30)); // Start at 30 degrees
+        .setRotation(Phaser.Math.DegToRad(-30)); 
 
-      // Create a pulsating glow effect with scaling and rotation
+     
       this.tweens.add({
         targets: levelUpText,
         scale: 1,
-        rotation: Phaser.Math.DegToRad(-45), // Rotate to 45 degrees
+        rotation: Phaser.Math.DegToRad(-45), 
         duration: 500,
         yoyo: true,
         ease: "Bounce.easeOut",
@@ -156,16 +158,14 @@ class GameScene extends Phaser.Scene {
             alpha: 0, // Fade out
             duration: 800,
             ease: "Power1",
-            onComplete: () => levelUpText.destroy(), // Remove text after fade
+            onComplete: () => levelUpText.destroy(), 
           });
         },
       });
 
-      // Optional: Add particles or confetti for extra flair
-      // Create the particle manager with a texture key
+      
       const particles = this.add.particles("spark");
 
-      // Stop the particles after a short time
       this.time.delayedCall(500, () => {
         particles.destroy();
       });
@@ -222,32 +222,142 @@ class GameScene extends Phaser.Scene {
       { background: { backgroundColor: "#ffffff", width: 120 } },
       "trophy_icon"
     );
+    this.spawnBalloon();
   }
 
   update(time) {
+    if (this.gameOver) return; // Prevent further updates if the game is over
+  
     if (!this.musicPlaying) {
       this.musicPlaying = true;
       this.sound.play("bgMusic", { loop: true });
     }
-
+  
     if (this.scoreMultiplierOn) {
       this.scoreLabel.setBorderColor("#FFD700");
     }
-
-    this.balloons = this.balloons.filter((balloon, index) => {
-      if (balloon.y < 0) {
+  
+    // Handle balloon movement and destruction, but do not update the score when game over
+    this.balloons = this.balloons.filter((balloon) => {
+      if (balloon.y <= 0) {
         balloon.destroy();
+        this.onBalloonMissed(); 
+        return false; 
       }
-
+  
       balloon.move(this);
       return true;
     });
-
-    if (time > this.lastSpawnTime + this.spawnInterval) {
+  
+    // Balloon spawn interval logic (game over should not spawn new balloons)
+    if (time > this.lastSpawnTime + this.spawnInterval && !this.gameOver) {
       this.spawnBalloon();
       this.lastSpawnTime = time;
     }
   }
+
+  resetGame() {
+    // Reset game state variables
+    this.score = 0;
+    this.scoreLabel.setText(`Score: ${this.score}`);
+    this.gameOver = false;
+  
+    // Clear any existing balloons and restart the balloon generation
+    this.balloons.forEach((balloon) => balloon.destroy());
+    this.balloons = [];
+  
+    // Optionally, reset other game state variables like multiplier, bonus
+    this.scoreMultiplierOn = false;
+    this.bonusOnScreen = false;
+  
+    // Restart background music
+    this.sound.play("bgMusic", { loop: true });
+  
+    // Hide game-over UI elements
+    this.children.getAll().forEach((child) => {
+      if (child.depth >= 10) {
+        child.destroy();
+      }
+    });
+  
+    // Start spawning balloons again
+    this.spawnBalloon();
+  }
+  
+  
+  
+  onBalloonMissed() {
+    this.gameOver = true;
+  
+    // Stop all balloons and clear the balloons array
+    this.balloons.forEach((balloon) => balloon.destroy());
+    this.balloons = [];
+  
+    // Stop the background music or other game-over actions
+    this.sound.stopAll();
+  
+    
+    const canvasWidth = this.sys.canvas.width;
+    const canvasHeight = this.sys.canvas.height;
+  
+    const overlay = this.add
+      .graphics()
+      .fillStyle(0x000000, 0.7)
+      .fillRect(0, 0, canvasWidth, canvasHeight);
+  
+    const boxWidth = 300;
+    const boxHeight = 200;
+    const boxX = canvasWidth / 2 - boxWidth / 2;
+    const boxY = canvasHeight / 2 - boxHeight / 2;
+  
+    const box = this.add
+      .graphics()
+      .fillStyle(0xffffff, 1)
+      .fillRoundedRect(boxX, boxY, boxWidth, boxHeight, 20);
+  
+    const gameOverText = this.add
+      .text(canvasWidth / 2, canvasHeight / 2 - 50, "Game Over", {
+        fontSize: "32px",
+        color: "#FF0000",
+        fontStyle: "bold",
+        fontFamily: "Arial",
+      })
+      .setOrigin(0.5);
+  
+    const replayText = this.add
+      .text(canvasWidth / 2, canvasHeight / 2 + 20, "Replay", {
+        fontSize: "24px",
+        color: "#000000",
+        fontStyle: "bold",
+        fontFamily: "Arial",
+      })
+      .setOrigin(0.5)
+      .setInteractive({ useHandCursor: true })
+      .on("pointerdown", () => {
+        this.resetGame(); // Reset game state when replay is clicked
+      });
+  
+    const exitText = this.add
+      .text(canvasWidth / 2, canvasHeight / 2 + 70, "Exit", {
+        fontSize: "24px",
+        color: "#000000",
+        fontStyle: "bold",
+        fontFamily: "Arial",
+      })
+      .setOrigin(0.5)
+      .setInteractive({ useHandCursor: true })
+      .on("pointerdown", () => {
+        this.scene.stop();
+        this.scene.start("MainMenuScene"); // Navigate to the main menu
+      });
+  
+    overlay.setDepth(10);
+    box.setDepth(11);
+    gameOverText.setDepth(12);
+    replayText.setDepth(12);
+    exitText.setDepth(12);
+  }
+  
 
   addScore(points) {
     this.score += points;
