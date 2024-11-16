@@ -338,7 +338,7 @@ class GameScene extends Phaser.Scene {
   
     const currentScoreText = this.add
       .text(canvasWidth / 2, currentScoreTextY, `Score: ${this.score}`, {
-        fontSize: "28px",
+        fontSize: "32px",
         color: "#FF0000",
         fontStyle: "light",
         fontFamily: "Arial",
