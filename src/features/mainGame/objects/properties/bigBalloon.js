@@ -32,7 +32,7 @@ export const bigBalloonProperties = {
   
     },
     onPop: (balloon) => {
-     
+    
         balloon.animate();
         balloon.scene.sound.play('pop');
   

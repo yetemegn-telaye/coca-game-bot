@@ -41,7 +41,10 @@ import BoomSound from "../../../assets/sounds/explosion-91872.mp3";
 
 import ShoutYeah from "../../../assets/sounds/shouting-yeah-7043.mp3";
 import OhOhSound from "../../../assets/sounds/uh-oh-101117.mp3";
+import { useNavigate } from "react-router-dom";
+
 class GameScene extends Phaser.Scene {
+  
   constructor(config) {
     super(config);
     this.score = 0;
@@ -241,7 +244,9 @@ class GameScene extends Phaser.Scene {
     this.balloons = this.balloons.filter((balloon) => {
       if (balloon.y <= 0) {
         balloon.destroy();
-        this.onBalloonMissed(); 
+        if(!this.gameOver){
+          this.onBalloonMissed(); 
+        } 
         return false; 
       }
   
@@ -285,18 +290,20 @@ class GameScene extends Phaser.Scene {
   }
   
   
-  
   onBalloonMissed() {
+    if (this.gameOver) return; // Prevent duplicate calls or changes when the game is already over
+  
+    // End the game
     this.gameOver = true;
   
-    // Stop all balloons and clear the balloons array
+    // Stop and destroy all balloons
     this.balloons.forEach((balloon) => balloon.destroy());
     this.balloons = [];
   
-    // Stop the background music or other game-over actions
+    // Stop all sounds
     this.sound.stopAll();
   
-    
+    // Display the game over screen
     const canvasWidth = this.sys.canvas.width;
     const canvasHeight = this.sys.canvas.height;
   
@@ -306,7 +313,7 @@ class GameScene extends Phaser.Scene {
       .fillRect(0, 0, canvasWidth, canvasHeight);
   
     const boxWidth = 300;
-    const boxHeight = 200;
+    const boxHeight = 340;
     const boxX = canvasWidth / 2 - boxWidth / 2;
     const boxY = canvasHeight / 2 - boxHeight / 2;
   
@@ -315,50 +322,148 @@ class GameScene extends Phaser.Scene {
       .fillStyle(0xffffff, 1)
       .fillRoundedRect(boxX, boxY, boxWidth, boxHeight, 20);
   
+    const gameOverTextY = canvasHeight / 2 - 120;
+    const replayButtonY = canvasHeight / 2;
+  
     const gameOverText = this.add
-      .text(canvasWidth / 2, canvasHeight / 2 - 50, "Game Over", {
+      .text(canvasWidth / 2, gameOverTextY, "Game Over", {
         fontSize: "32px",
-        color: "#FF0000",
+        color: "#000000",
         fontStyle: "bold",
         fontFamily: "Arial",
       })
       .setOrigin(0.5);
+ 
+    const currentScoreTextY = (gameOverTextY + replayButtonY) / 2;
   
-    const replayText = this.add
-      .text(canvasWidth / 2, canvasHeight / 2 + 20, "Replay", {
-        fontSize: "24px",
-        color: "#000000",
-        fontStyle: "bold",
+    const currentScoreText = this.add
+      .text(canvasWidth / 2, currentScoreTextY, `Score: ${this.score}`, {
+        fontSize: "28px",
+        color: "#FF0000",
+        fontStyle: "light",
         fontFamily: "Arial",
       })
-      .setOrigin(0.5)
-      .setInteractive({ useHandCursor: true })
-      .on("pointerdown", () => {
-        this.resetGame(); // Reset game state when replay is clicked
+      .setOrigin(0.5);
+
+    const createButton = (text, x, y, callback) => {
+      const buttonWidth = 200;
+      const buttonHeight = 50;
+  
+      const buttonBg = this.add.graphics();
+      buttonBg
+        .fillStyle(0xffffff, 1)
+        .fillRoundedRect(
+          x - buttonWidth / 2,
+          y - buttonHeight / 2,
+          buttonWidth,
+          buttonHeight,
+          10
+        )
+        .lineStyle(3, 0x000000)
+        .strokeRoundedRect(
+          x - buttonWidth / 2,
+          y - buttonHeight / 2,
+          buttonWidth,
+          buttonHeight,
+          10
+        );
+  
+      const buttonText = this.add
+        .text(x, y, text, {
+          fontSize: "20px",
+          color: "#000000",
+          fontStyle: "bold",
+          fontFamily: "Arial",
+        })
+        .setOrigin(0.5);
+  
+      buttonBg.setInteractive(
+        new Phaser.Geom.Rectangle(
+          x - buttonWidth / 2,
+          y - buttonHeight / 2,
+          buttonWidth,
+          buttonHeight
+        ),
+        Phaser.Geom.Rectangle.Contains
+      );
+  
+      buttonBg.on("pointerover", () => {
+        buttonBg.clear();
+        buttonBg
+          .fillStyle(0xe0e0e0, 1)
+          .fillRoundedRect(
+            x - buttonWidth / 2,
+            y - buttonHeight / 2,
+            buttonWidth,
+            buttonHeight,
+            10
+          )
+          .lineStyle(3, 0x000000)
+          .strokeRoundedRect(
+            x - buttonWidth / 2,
+            y - buttonHeight / 2,
+            buttonWidth,
+            buttonHeight,
+            10
+          );
       });
   
-    const exitText = this.add
-      .text(canvasWidth / 2, canvasHeight / 2 + 70, "Exit", {
-        fontSize: "24px",
-        color: "#000000",
-        fontStyle: "bold",
-        fontFamily: "Arial",
-      })
-      .setOrigin(0.5)
-      .setInteractive({ useHandCursor: true })
-      .on("pointerdown", () => {
+      buttonBg.on("pointerout", () => {
+        buttonBg.clear();
+        buttonBg
+          .fillStyle(0xffffff, 1)
+          .fillRoundedRect(
+            x - buttonWidth / 2,
+            y - buttonHeight / 2,
+            buttonWidth,
+            buttonHeight,
+            10
+          )
+          .lineStyle(3, 0x000000)
+          .strokeRoundedRect(
+            x - buttonWidth / 2,
+            y - buttonHeight / 2,
+            buttonWidth,
+            buttonHeight,
+            10
+          );
+      });
+  
+      buttonBg.on("pointerdown", callback);
+  
+      return { buttonBg, buttonText };
+    };
+  
+    const replayButton = createButton(
+      "Replay",
+      canvasWidth / 2,
+      replayButtonY,
+      () => {
+        this.resetGame();
+      }
+    );
+  
+    const exitButton = createButton(
+      "Exit",
+      canvasWidth / 2,
+      canvasHeight / 2 + 80,
+      () => {
         this.scene.stop();
-        this.scene.start("MainMenuScene"); // Navigate to the main menu
-      });
+        this.scene.start("MainMenuScene");
+      }
+    );
   
     overlay.setDepth(10);
     box.setDepth(11);
     gameOverText.setDepth(12);
-    replayText.setDepth(12);
-    exitText.setDepth(12);
+    currentScoreText.setDepth(12);
+    replayButton.buttonBg.setDepth(12);
+    replayButton.buttonText.setDepth(13);
+    exitButton.buttonBg.setDepth(12);
+    exitButton.buttonText.setDepth(13);
   }
   
-
+  
   addScore(points) {
     this.score += points;
     this.scoreLabel.setText(`Score: ${this.score}`);

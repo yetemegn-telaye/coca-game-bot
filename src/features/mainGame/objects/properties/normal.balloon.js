@@ -35,7 +35,7 @@ export const normalBalloonProperties = {
 
     },
     onPop: (balloon) => {
-     
+      if(balloon.scene.gameOver) return;
 
         balloon.animate();
         balloon.scene.sound.play('pop');

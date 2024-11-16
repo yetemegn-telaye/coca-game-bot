@@ -30,8 +30,8 @@ export const bonusIceCubeProperties = {
 
     },
     onPop: (balloon) => {
-
-
+     
+      if(balloon.scene.gameOver) return;
 
 
       if (!balloon.scene) {
