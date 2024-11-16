@@ -1,6 +1,6 @@
 export const skullIceCubeProperties = {
     alias: 'skull_ice_cube',
-    size: 55,
+    size: 100,
     speed: 1,
     health: 1,
  

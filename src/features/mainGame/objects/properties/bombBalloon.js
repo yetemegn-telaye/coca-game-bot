@@ -33,7 +33,7 @@ export const bombBalloonProperties = {
 
 
     onPop: (balloon) => {
-
+      
       // Check if the balloon is already destroyed and exit if true
       if (balloon.destroyed) return;  
         const scene = balloon.scene;

@@ -1,6 +1,6 @@
 export const bigBalloonProperties = {
     alias: 'big_balloon',
-    size: 75,
+    size: 145,
     speed: 1,
     health: 3,
     get color(){
@@ -32,7 +32,7 @@ export const bigBalloonProperties = {
   
     },
     onPop: (balloon) => {
-  
+    
         balloon.animate();
         balloon.scene.sound.play('pop');
   

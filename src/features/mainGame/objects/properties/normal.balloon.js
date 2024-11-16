@@ -1,6 +1,6 @@
 export const normalBalloonProperties = {
     alias: 'normal_balloon',
-    size: 55,
+    size: 110,
     speed: 3,
     health: 1,
 
@@ -35,7 +35,7 @@ export const normalBalloonProperties = {
 
     },
     onPop: (balloon) => {
-
+      if(balloon.scene.gameOver) return;
 
         balloon.animate();
         balloon.scene.sound.play('pop');

@@ -1,5 +1,6 @@
 import Phaser from "phaser";
-import BackgroundImage from "../../../assets/coca-bg2.png";
+// import BackgroundImage from "../../../assets/coca-bg2.png";
+import BackgroundImage from "../../../assets/tilesetOpenGameBackground.png";
 import Balloon from "../objects/balloon";
 import Label from "../objects/gameLabel";
 
@@ -8,13 +9,13 @@ import TrophyIcon from "../../../assets/icons/Group.png";
 import SkullIcecube from "../../../assets/images/skullIcecube.png";
 import CocaIcecube from "../../../assets/images/bottleIcecube.png";
 import BonusIcecube from "../../../assets/images/coinIcecube.png";
-import GreenBalloon from "../../../assets/images/balloon.svg";
+import GreenBalloon from "../../../assets/images/balloons/balloongreen.png";
 import BigBalloon from "../../../assets/images/bigBalloon.svg";
-import GoldenBalloon from "../../../assets/images/goldenBalloon.svg";
-import BlueBalloon from "../../../assets/images/blueBalloon.svg";
+import GoldenBalloon from "../../../assets/images/balloons/balloongolden.png";
+import BlueBalloon from "../../../assets/images/balloons/balloonblue.png";
 import PurpleBalloon from "../../../assets/images/purpleBalloon.svg";
 import BrownBalloon from "../../../assets/images/brownBalloon.svg";
-import RedBalloon from "../../../assets/images/redBalloon.svg";
+import RedBalloon from "../../../assets/images/balloon_red2.png";
 import BlackBalloon from "../../../assets/images/bombbal.png";
 
 import { move } from "../../../utils/dropMovement";
@@ -35,11 +36,15 @@ import {
 import PopSound from "../../../assets/sounds/pop-94319.mp3";
 import BgMusic from "../../../assets/sounds/harar-beer-ballon-game-background-music.mp3";
 import Explosion from "../../../assets/images/spritesheet/explosion.png";
+// import Explosion from "../../../assets/images/spritesheet/balloon_redpack.png";
 import BoomSound from "../../../assets/sounds/explosion-91872.mp3";
 
 import ShoutYeah from "../../../assets/sounds/shouting-yeah-7043.mp3";
 import OhOhSound from "../../../assets/sounds/uh-oh-101117.mp3";
+import { useNavigate } from "react-router-dom";
+
 class GameScene extends Phaser.Scene {
+  
   constructor(config) {
     super(config);
     this.score = 0;
@@ -53,8 +58,10 @@ class GameScene extends Phaser.Scene {
     this.bonusOnScreen = false;
 
     this.musicPlaying = false;
+    this.gameOver = false;
   }
 
+ 
   preload() {
     this.load.image("background", BackgroundImage);
     this.load.audio("pop", PopSound);
@@ -81,6 +88,7 @@ class GameScene extends Phaser.Scene {
       frameWidth: 16,
       frameHeight: 16,
     });
+  
   }
 
   create() {
@@ -95,28 +103,28 @@ class GameScene extends Phaser.Scene {
       const bonusText = this.add
         .text(x, y, `+${points}`, {
           fontSize: "20px",
-          color: "#FFD700", // Yellow color for bonus
+          color: "#FFD700",
           fontStyle: "bold",
         })
         .setOrigin(0.5)
         .setScale(0);
 
-      // Animation sequence for the bonus text
+     
       this.tweens.add({
         targets: bonusText,
-        scale: 2, // Pop-up effect
+        scale: 2,
         duration: 700,
         ease: "Back.easeOut",
         onComplete: () => {
-          // After pop, float up and fade out
+          
           this.tweens.add({
             targets: bonusText,
-            y: y - 50, // Float up
-            alpha: 0, // Fade out
+            y: y - 50, 
+            alpha: 0, 
             duration: 800,
             scale: 1,
             ease: "Power1",
-            onComplete: () => bonusText.destroy(), // Remove text after animation
+            onComplete: () => bonusText.destroy(),
           });
         },
       });
@@ -137,13 +145,13 @@ class GameScene extends Phaser.Scene {
         })
         .setOrigin(0.5)
         .setScale(0)
-        .setRotation(Phaser.Math.DegToRad(-30)); // Start at 30 degrees
+        .setRotation(Phaser.Math.DegToRad(-30)); 
 
-      // Create a pulsating glow effect with scaling and rotation
+     
       this.tweens.add({
         targets: levelUpText,
         scale: 1,
-        rotation: Phaser.Math.DegToRad(-45), // Rotate to 45 degrees
+        rotation: Phaser.Math.DegToRad(-45), 
         duration: 500,
         yoyo: true,
         ease: "Bounce.easeOut",
@@ -153,16 +161,14 @@ class GameScene extends Phaser.Scene {
             alpha: 0, // Fade out
             duration: 800,
             ease: "Power1",
-            onComplete: () => levelUpText.destroy(), // Remove text after fade
+            onComplete: () => levelUpText.destroy(), 
           });
         },
       });
 
-      // Optional: Add particles or confetti for extra flair
-      // Create the particle manager with a texture key
+      
       const particles = this.add.particles("spark");
 
-      // Stop the particles after a short time
       this.time.delayedCall(500, () => {
         particles.destroy();
       });
@@ -219,33 +225,245 @@ class GameScene extends Phaser.Scene {
       { background: { backgroundColor: "#ffffff", width: 120 } },
       "trophy_icon"
     );
+    this.spawnBalloon();
   }
 
   update(time) {
+    if (this.gameOver) return; // Prevent further updates if the game is over
+  
     if (!this.musicPlaying) {
       this.musicPlaying = true;
       this.sound.play("bgMusic", { loop: true });
     }
-
+  
     if (this.scoreMultiplierOn) {
       this.scoreLabel.setBorderColor("#FFD700");
     }
-
-    this.balloons = this.balloons.filter((balloon, index) => {
-      if (balloon.y == this.sys.canvas.height) {
+  
+    // Handle balloon movement and destruction, but do not update the score when game over
+    this.balloons = this.balloons.filter((balloon) => {
+      if (balloon.y <= 0) {
         balloon.destroy();
+        if(!this.gameOver){
+          this.onBalloonMissed(); 
+        } 
+        return false; 
       }
-
+  
       balloon.move(this);
       return true;
     });
-
-    if (time > this.lastSpawnTime + this.spawnInterval) {
+  
+    // Balloon spawn interval logic (game over should not spawn new balloons)
+    if (time > this.lastSpawnTime + this.spawnInterval && !this.gameOver) {
       this.spawnBalloon();
       this.lastSpawnTime = time;
     }
   }
 
+  resetGame() {
+    // Reset game state variables
+    this.score = 0;
+    this.scoreLabel.setText(`Score: ${this.score}`);
+    this.gameOver = false;
+  
+    // Clear any existing balloons and restart the balloon generation
+    this.balloons.forEach((balloon) => balloon.destroy());
+    this.balloons = [];
+  
+    // Optionally, reset other game state variables like multiplier, bonus
+    this.scoreMultiplierOn = false;
+    this.bonusOnScreen = false;
+  
+    // Restart background music
+    this.sound.play("bgMusic", { loop: true });
+  
+    // Hide game-over UI elements
+    this.children.getAll().forEach((child) => {
+      if (child.depth >= 10) {
+        child.destroy();
+      }
+    });
+  
+    // Start spawning balloons again
+    this.spawnBalloon();
+  }
+  
+  
+  onBalloonMissed() {
+    if (this.gameOver) return; // Prevent duplicate calls or changes when the game is already over
+  
+    // End the game
+    this.gameOver = true;
+  
+    // Stop and destroy all balloons
+    this.balloons.forEach((balloon) => balloon.destroy());
+    this.balloons = [];
+  
+    // Stop all sounds
+    this.sound.stopAll();
+  
+    // Display the game over screen
+    const canvasWidth = this.sys.canvas.width;
+    const canvasHeight = this.sys.canvas.height;
+  
+    const overlay = this.add
+      .graphics()
+      .fillStyle(0x000000, 0.7)
+      .fillRect(0, 0, canvasWidth, canvasHeight);
+  
+    const boxWidth = 300;
+    const boxHeight = 340;
+    const boxX = canvasWidth / 2 - boxWidth / 2;
+    const boxY = canvasHeight / 2 - boxHeight / 2;
+  
+    const box = this.add
+      .graphics()
+      .fillStyle(0xffffff, 1)
+      .fillRoundedRect(boxX, boxY, boxWidth, boxHeight, 20);
+  
+    const gameOverTextY = canvasHeight / 2 - 120;
+    const replayButtonY = canvasHeight / 2;
+  
+    const gameOverText = this.add
+      .text(canvasWidth / 2, gameOverTextY, "Game Over", {
+        fontSize: "32px",
+        color: "#000000",
+        fontStyle: "bold",
+        fontFamily: "Arial",
+      })
+      .setOrigin(0.5);
+ 
+    const currentScoreTextY = (gameOverTextY + replayButtonY) / 2;
+  
+    const currentScoreText = this.add
+      .text(canvasWidth / 2, currentScoreTextY, `Score: ${this.score}`, {
+        fontSize: "32px",
+        color: "#FF0000",
+        fontStyle: "light",
+        fontFamily: "Arial",
+      })
+      .setOrigin(0.5);
+
+    const createButton = (text, x, y, callback) => {
+      const buttonWidth = 200;
+      const buttonHeight = 50;
+  
+      const buttonBg = this.add.graphics();
+      buttonBg
+        .fillStyle(0xffffff, 1)
+        .fillRoundedRect(
+          x - buttonWidth / 2,
+          y - buttonHeight / 2,
+          buttonWidth,
+          buttonHeight,
+          10
+        )
+        .lineStyle(3, 0x000000)
+        .strokeRoundedRect(
+          x - buttonWidth / 2,
+          y - buttonHeight / 2,
+          buttonWidth,
+          buttonHeight,
+          10
+        );
+  
+      const buttonText = this.add
+        .text(x, y, text, {
+          fontSize: "20px",
+          color: "#000000",
+          fontStyle: "bold",
+          fontFamily: "Arial",
+        })
+        .setOrigin(0.5);
+  
+      buttonBg.setInteractive(
+        new Phaser.Geom.Rectangle(
+          x - buttonWidth / 2,
+          y - buttonHeight / 2,
+          buttonWidth,
+          buttonHeight
+        ),
+        Phaser.Geom.Rectangle.Contains
+      );
+  
+      buttonBg.on("pointerover", () => {
+        buttonBg.clear();
+        buttonBg
+          .fillStyle(0xe0e0e0, 1)
+          .fillRoundedRect(
+            x - buttonWidth / 2,
+            y - buttonHeight / 2,
+            buttonWidth,
+            buttonHeight,
+            10
+          )
+          .lineStyle(3, 0x000000)
+          .strokeRoundedRect(
+            x - buttonWidth / 2,
+            y - buttonHeight / 2,
+            buttonWidth,
+            buttonHeight,
+            10
+          );
+      });
+  
+      buttonBg.on("pointerout", () => {
+        buttonBg.clear();
+        buttonBg
+          .fillStyle(0xffffff, 1)
+          .fillRoundedRect(
+            x - buttonWidth / 2,
+            y - buttonHeight / 2,
+            buttonWidth,
+            buttonHeight,
+            10
+          )
+          .lineStyle(3, 0x000000)
+          .strokeRoundedRect(
+            x - buttonWidth / 2,
+            y - buttonHeight / 2,
+            buttonWidth,
+            buttonHeight,
+            10
+          );
+      });
+  
+      buttonBg.on("pointerdown", callback);
+  
+      return { buttonBg, buttonText };
+    };
+  
+    const replayButton = createButton(
+      "Replay",
+      canvasWidth / 2,
+      replayButtonY,
+      () => {
+        this.resetGame();
+      }
+    );
+  
+    const exitButton = createButton(
+      "Exit",
+      canvasWidth / 2,
+      canvasHeight / 2 + 80,
+      () => {
+        this.scene.stop();
+        this.scene.start("MainMenuScene");
+      }
+    );
+  
+    overlay.setDepth(10);
+    box.setDepth(11);
+    gameOverText.setDepth(12);
+    currentScoreText.setDepth(12);
+    replayButton.buttonBg.setDepth(12);
+    replayButton.buttonText.setDepth(13);
+    exitButton.buttonBg.setDepth(12);
+    exitButton.buttonText.setDepth(13);
+  }
+  
+  
   addScore(points) {
     this.score += points;
     this.scoreLabel.setText(`Score: ${this.score}`);
@@ -266,7 +484,10 @@ class GameScene extends Phaser.Scene {
 
   spawnBalloon() {
     const canvasWidth = this.sys.canvas.width;
+    const canvasHeight = this.sys.canvas.height;
     const x = Phaser.Math.Between(20, canvasWidth - 20);
+    const y = canvasHeight;
+    
 
     const levels = [
       { maxScore: 1, types: [] },
@@ -306,7 +527,7 @@ class GameScene extends Phaser.Scene {
     while (balloonType.type == "bonus" && (this.scoreMultiplierOn)){
        balloonType = this.getWeightedRandomBalloonType(level.types);
     }
-    const newBalloon = new Balloon(this, x, 0, {
+    const newBalloon = new Balloon(this, x, y, {
       ...balloonType,
       speed: level.speed || 1,
       score: level.score || 1,

@@ -9,21 +9,14 @@ import Phaser from "phaser";
   };
   
   export function move(scene) {
-    this.y += this.speed; // Move downward by increasing the y value
+    this.y -= this.speed; // Move downward by increasing the y value
   
     // If the object moves off the bottom of the screen, reset it to the top
-    if (this.y > scene.sys.canvas.height) {
-       this.y = 0; // Reset to the top of the canvas
+    if (this.y < 0) {
+      this.y = scene.sys.canvas.height; // Reset to the top of the canvas
        this.x = Phaser.Math.Between(0, scene.sys.canvas.width); // Reset to a random X position
-
-
     }
-    else if(this.y == scene.sys.canvas.height){
-      //this.destroy();
-
-    }
-    
-
+   
   }
   
 
