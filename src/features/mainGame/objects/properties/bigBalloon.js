@@ -1,6 +1,6 @@
 export const bigBalloonProperties = {
     alias: 'big_balloon',
-    size: 145,
+    size: 110,
     speed: 1,
     health: 3,
     get color(){

@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 // import BackgroundImage from "../../../assets/coca-bg2.png";
-import BackgroundImage from "../../../assets/tilesetOpenGameBackground.png";
+import BackgroundImage from "../../../assets/sky-bg.jpg";
 import Balloon from "../objects/balloon";
 import Label from "../objects/gameLabel";
 
@@ -103,7 +103,7 @@ class GameScene extends Phaser.Scene {
       const bonusText = this.add
         .text(x, y, `+${points}`, {
           fontSize: "20px",
-          color: "#FFD700",
+          color: "#f2cc05",
           fontStyle: "bold",
         })
         .setOrigin(0.5)
@@ -178,7 +178,7 @@ class GameScene extends Phaser.Scene {
         .text(x, y, `+${points}`, {
           fontSize: "20px",
 
-          color: "#eee",
+          color: "#2e2727",
           fontStyle: "bold",
         })
         .setOrigin(0.5);

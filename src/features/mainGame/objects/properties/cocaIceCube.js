@@ -1,6 +1,6 @@
 export const cocaIceCubeProperties = {
     alias: 'coca_ice_cube',
-    size: 55,
+    size: 82,
     speed: 1,
     health: 1,
     // get color(){
