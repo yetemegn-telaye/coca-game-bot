@@ -1,6 +1,6 @@
 export const normalBalloonProperties = {
     alias: 'normal_balloon',
-    size: 110,
+    size: 82,
     speed: 3,
     health: 1,
 
