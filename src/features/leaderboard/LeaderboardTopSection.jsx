@@ -4,7 +4,7 @@ import Crown3Icon from '../../assets/icons/crown3.png';
 import Winner1Pic from '../../assets/images/winnerpic.png';
 import Winner2Pic from '../../assets/images/win2nd.png';
 import Winner3Pic from '../../assets/images/win3rd.png';
-import CoinCapIcon from '../../assets/icons/coca-cola-cap2-removebg-preview 1.svg';
+import CoinCapIcon from '../../assets/icons/warytlogo.png';
 
 const winners = [
     {
