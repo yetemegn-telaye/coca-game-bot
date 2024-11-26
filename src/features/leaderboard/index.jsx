@@ -1,6 +1,6 @@
 import TopBar from "../../components/TopBar";
 import LeaderBoardTopSection from "./LeaderboardTopSection";
-import CocaPic from '../../assets/images/cocaleaderboard.svg';
+import Chair from '../../assets/bluechair-removebg-preview.png';
 import LeaderboardCard from "./LeaderboardCard";
 import PlayerPic1 from '../../assets/images/alex.png';
 import PlayerPic2 from '../../assets/images/ashu.png';
@@ -41,8 +41,8 @@ const LeaderBoard = ()=>{
         <div className="main-container bg-gradient-primary">
            <TopBar title="LeaderBoard" />
            <LeaderBoardTopSection />
-           <div className="flex flex-col items-center relative bottom-2">
-                <img src={CocaPic} alt="coca" className="h-26 w-26" />
+           <div className="flex flex-col items-center relative">
+                <img src={Chair} alt="coca" style={{height:'240px', width:"240px"}} />
            </div>
            <div className="flex flex-col gap-3 px-3 pb-5">
            {players.map((player,index)=>

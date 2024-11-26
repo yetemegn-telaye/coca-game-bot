@@ -15,7 +15,8 @@ const MainMenu = () => {
         if (window.Telegram && window.Telegram.WebApp) {
             const tg = window.Telegram.WebApp;
           
-            tg.setHeaderColor('#C92A2A');
+            tg.setHeaderColor('#0F4C98');
+            
           } else {
             console.error("Telegram WebApp is not available.");
           }

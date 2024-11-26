@@ -1,10 +1,10 @@
 import Phaser from "phaser";
 // import BackgroundImage from "../../../assets/coca-bg2.png";
-import BackgroundImage from "../../../assets/sky-bg.jpg";
+import BackgroundImage from "../../../assets/sky-blue.jpg";
 import Balloon from "../objects/balloon";
 import Label from "../objects/gameLabel";
 
-import CorkIcon from "../../../assets/icons/coca-cola-cap2-removebg-preview 1.svg";
+import CorkIcon from "../../../assets/icons/warytlogo.png";
 import TrophyIcon from "../../../assets/icons/Group.png";
 import SkullIcecube from "../../../assets/images/skullIcecube.png";
 import CocaIcecube from "../../../assets/images/bottleIcecube.png";
@@ -328,7 +328,7 @@ class GameScene extends Phaser.Scene {
     const gameOverText = this.add
       .text(canvasWidth / 2, gameOverTextY, "Game Over", {
         fontSize: "32px",
-        color: "#000000",
+        color: "#0F4C98",
         fontStyle: "bold",
         fontFamily: "Arial",
       })
@@ -359,7 +359,7 @@ class GameScene extends Phaser.Scene {
           buttonHeight,
           10
         )
-        .lineStyle(3, 0x000000)
+        .lineStyle(3, 0x0000ff)
         .strokeRoundedRect(
           x - buttonWidth / 2,
           y - buttonHeight / 2,
@@ -371,7 +371,7 @@ class GameScene extends Phaser.Scene {
       const buttonText = this.add
         .text(x, y, text, {
           fontSize: "20px",
-          color: "#000000",
+          color: "#0F4C98",
           fontStyle: "bold",
           fontFamily: "Arial",
         })

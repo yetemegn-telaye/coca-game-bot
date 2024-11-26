@@ -51,15 +51,15 @@ const MenuDetailSection =()=>{
     return(
         <div className="flex flex-col gap-8 bg-gradient-secondary p-5 mt-5">
             <div className="flex items-center justify-between my-1">
-                <button className="text-black border border-black bg-transparent py-1 px-7 text-sm rounded-lg font-bold">Stats</button>
-                <button className="text-gray-700 flex items-center text-sm font-bold hover:text-black" onClick={()=>navigate('/leaderboard')}>
+                <button className="text-primary border border-primary bg-transparent py-1 px-7 text-sm rounded-lg font-bold">Stats</button>
+                <button className="text-primary flex items-center text-sm font-bold hover:text-black" onClick={()=>navigate('/leaderboard')}>
                     <img src={TrophyBlack} alt="trophy" className="w-7 h-6"/>
                     Leader Board
                 </button>
             </div>
            <div className='flex flex-col gap-3 mt-2'>
-            <div className='text-sm flex items-center gap-2 text-black font-bold'>
-            <h3>Achievement</h3>
+            <div className='text-sm flex items-center gap-2 text-primary font-bold'>
+            <h3 className='text-primary'>Achievement</h3>
             <span>(2)</span>
             </div>
             <div className='flex items-center gap-4'>
@@ -70,7 +70,7 @@ const MenuDetailSection =()=>{
             </div>
            </div>
            <div className='flex flex-col gap-4'>
-            <div className='text-sm flex items-center gap-2 text-black font-bold'>
+            <div className='text-sm flex items-center gap-2 text-primary font-bold'>
             <h3>Shared Members</h3>
             <span>(5)</span>
             </div>

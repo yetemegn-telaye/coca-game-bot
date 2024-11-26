@@ -66,20 +66,22 @@ class Balloon extends Phaser.GameObjects.Image {
   }
 
   animate() {
-    console.log('animate')
-    console.log('Before tween:', this.scaleX, this.scaleY, this.alpha); // Log initial properties
+    console.log('animate');
 
-    const explosion = this.scene.add.sprite(this.x, this.y, 'explosion');
-    explosion.setScale(this.size / explosion.width, this.size / explosion.height);
+    // Create an expanding circle effect
+    const circle = this.scene.add.graphics({ fillStyle: { color: 0xffffff } });
+    circle.fillCircle(this.x, this.y, 10);  // Initial small circle
 
-    explosion.play('explode');
-
-
-    explosion.on('animationcomplete', () => {
-      explosion.destroy();
-      // this.resetBalloon(); 
+    this.scene.tweens.add({
+        targets: circle,
+        scale: 3,                // Expand the circle
+        alpha: 0,                // Fade out during expansion
+        duration: 100,
+        ease: 'Cubic.easeOut',
+        onComplete: () => circle.destroy()  // Remove after effect
     });
-  }
+}
+
 
 
     inflate(){

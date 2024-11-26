@@ -1,4 +1,4 @@
-import CoinCapIcon from '../../assets/icons/coca-cola-cap2-removebg-preview 1.svg';
+import CoinCapIcon from '../../assets/icons/warytlogo.png';
 
 const LeaderboardCard = ({player})=>{
     return(
@@ -9,7 +9,7 @@ const LeaderboardCard = ({player})=>{
             <p className="">{player.playerName}</p>
             </div>
            <div className='flex items-center'>
-            <p>{player.scoreValue}</p>
+            <p className='pr-1'>{player.scoreValue}</p>
             <img src={CoinCapIcon} alt="coin cap"  className='w-5 h-5 mt-1' />
            </div>
         </div>

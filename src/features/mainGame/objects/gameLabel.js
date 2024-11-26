@@ -36,7 +36,7 @@ class Label extends Phaser.GameObjects.Container {
     // Add optional icon image
     this.image = null;
     if (imageKey) {
-      this.image = this.scene.add.image(-this.backgroundStyle.width / 2 + 20, 0, imageKey).setOrigin(0.5, 0.4).setScale(0.7);
+      this.image = this.scene.add.image(-this.backgroundStyle.width / 2 + 20, 0, imageKey).setOrigin(0.5, 0.4).setScale(0.4);
     }
 
     if (this.image) {
@@ -86,7 +86,7 @@ class Label extends Phaser.GameObjects.Container {
     this.drawBackground(); // Redraw background with new color
   }
 
-  setImage(imageKey,imageScale = 0.7) {
+  setImage(imageKey,imageScale = 0.4) {
     this.image = this.scene.add.image(-this.backgroundStyle.width / 2 + 20, 0, imageKey).setOrigin(0.5, 0.4).setScale(imageScale);
   }
 
